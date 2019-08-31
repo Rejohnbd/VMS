@@ -50,7 +50,7 @@ class LayoutDashboard extends React.Component {
                     goToVehicleLocation={this.vechicleLocationHandler}
                     />
             case 'VEHICLE_LOCATION':
-                return <VehicleLocation vehicle={this.state.device} />
+                return <VehicleLocation device={this.state.device} />
             default: 
                 return <UserDashboard />
         }
