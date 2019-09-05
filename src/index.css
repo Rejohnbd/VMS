@@ -991,7 +991,7 @@ a:focus {
   padding: 0.75rem 3.25rem 0.75rem 1.25rem;
 }
 
-.card .card-header[data-toggle="collapse"]::after {
+/* .card .card-header[data-toggle="collapse"]::after {
   position: absolute;
   right: 0;
   top: 0;
@@ -1001,15 +1001,21 @@ a:focus {
   content: '\f107';
   font-family: 'Font Awesome 5 Free';
   color: #d1d3e2;
+} */
+.vehicle-icon {
+  position: absolute;
+  right: 15px;
+  top: 15px;
+  font-family: 'Font Awesome 5 Free';
 }
 
 .card .card-header[data-toggle="collapse"].collapsed {
   border-radius: 0.35rem;
 }
 
-.card .card-header[data-toggle="collapse"].collapsed::after {
+/* .card .card-header[data-toggle="collapse"].collapsed::after {
   content: '\f105';
-}
+} */
 
 .chart-area {
   position: relative;
@@ -1047,7 +1053,7 @@ a:focus {
   }
 }
 
-.bg-login-image {
+/* .bg-login-image {
   background: url("https://source.unsplash.com/K4mSJ7kc0As/600x800");
   background-position: center;
   background-size: cover;
@@ -1063,7 +1069,7 @@ a:focus {
   background: url("https://source.unsplash.com/oWTW-jNGl9I/600x800");
   background-position: center;
   background-size: cover;
-}
+} */
 
 form.user .custom-checkbox.small label {
   line-height: 1.5rem;

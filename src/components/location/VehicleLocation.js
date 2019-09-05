@@ -1,9 +1,11 @@
-import React, { useEffect} from 'react';
+import React, { Fragment } from 'react';
 import mapboxgl from 'mapbox-gl';
 import ReactMapboxGl, { Layer, Feature } from 'react-mapbox-gl';
 import firebase from 'firebase';
 import MyMarker from './MyMarker';
 import * as geolib from 'geolib';
+// Redux
+// import { connect } from 'react-redux';
 
 
 const Map = ReactMapboxGl({
@@ -16,7 +18,7 @@ function dex_to_degrees (dex) {
 };
 
 function convertData (data) {
-    console.log(data)
+    // console.log(data)
     let lat = dex_to_degrees(data.lat);
     let lng = dex_to_degrees(data.lng);
     let speed = dex_to_degrees(data.speed)*1800000;
@@ -98,14 +100,13 @@ class VehicleLocation extends React.Component {
     render() { 
       
         return (
-            <div>
+            <Fragment>
                 <div className="d-sm-flex align-items-center justify-content-between mb-4">
-                    <h1 className="h3 mb-0 text-gray-800">Vehicle Location</h1>
-                   
+                    {/* <h1 className="h3 mb-0 text-gray-800">Vehicle Location</h1> */}
                 </div>
                 <div className="card shadow mb-4" >
                     <div className="card-header py-3">
-                        <h6 className="m-0 font-weight-bold text-center text-primary">Edit Device Information</h6>
+                        <h6 className="m-0 font-weight-bold text-center text-primary">VEHICLE LOCATION IN MAP</h6>
                     </div>
                     <div id="map" className="card-body" style={{height:'600px'}}>
                       <Map
@@ -126,8 +127,7 @@ class VehicleLocation extends React.Component {
                       </Map>
                     </div>
                 </div>
-            </div>
-            
+            </Fragment>
         );
     }
 }

@@ -1,6 +1,7 @@
 import React from 'react';
 import userImage from '../images/user-image.png';
 import PropTypes from 'prop-types';
+import ReactTooltip  from 'react-tooltip';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
     faBell, 
@@ -53,51 +54,52 @@ class Topbar extends React.Component {
                 
                 <ul className="navbar-nav ml-auto">
                     
-                    <li className="nav-item dropdown no-arrow mx-1">
-                    <a className="nav-link dropdown-toggle" href="/" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <FontAwesomeIcon icon={faBell} />
-                        <span className="badge badge-danger badge-counter">3+</span>
-                    </a>
-                    <div className="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
-                        <h6 className="dropdown-header">
-                        Alerts Center
-                        </h6>
-                        <a className="dropdown-item d-flex align-items-center" href="/">
-                        <div className="mr-3">
-                            <div className="icon-circle bg-primary">
-                            <FontAwesomeIcon className="text-white" icon={faFileAlt} />
+                    <li className="nav-item dropdown no-arrow mx-1" data-tip="Show Notification">
+                        <a className="nav-link dropdown-toggle" href="/" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <FontAwesomeIcon icon={faBell} />
+                            <span className="badge badge-danger badge-counter">3+</span>
+                        </a>
+                        <div className="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
+                            <h6 className="dropdown-header">
+                            Alerts Center
+                            </h6>
+                            <a className="dropdown-item d-flex align-items-center" href="/">
+                            <div className="mr-3">
+                                <div className="icon-circle bg-primary">
+                                <FontAwesomeIcon className="text-white" icon={faFileAlt} />
+                                </div>
                             </div>
+                            <div>
+                                <div className="small text-gray-500">December 12, 2019</div>
+                                <span className="font-weight-bold">A new monthly report is ready to download!</span>
+                            </div>
+                            </a>
+                            <a className="dropdown-item text-center small text-gray-500" href="/">Show All Alerts</a>
                         </div>
-                        <div>
-                            <div className="small text-gray-500">December 12, 2019</div>
-                            <span className="font-weight-bold">A new monthly report is ready to download!</span>
-                        </div>
-                        </a>
-                        <a className="dropdown-item text-center small text-gray-500" href="/">Show All Alerts</a>
-                    </div>
                     </li>
+                    <ReactTooltip />
 
-                    <li className="nav-item dropdown no-arrow mx-1">
-                    <a className="nav-link dropdown-toggle" href="/" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <FontAwesomeIcon icon={faEnvelope} />
-                        <span className="badge badge-danger badge-counter">7</span>
-                    </a>
-                    <div className="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="messagesDropdown">
-                        <h6 className="dropdown-header">
-                        Message Center
-                        </h6>
-                        <a className="dropdown-item d-flex align-items-center" href="/">
-                        <div className="dropdown-list-image mr-3">
-                            <img className="rounded-circle" src={userImage} alt="" />
-                            <div className="status-indicator bg-success"></div>
-                        </div>
-                        <div className="font-weight-bold">
-                            <div className="text-truncate">Hi there! I am wondering if you can help me with a problem I've been having.</div>
-                            <div className="small text-gray-500">Emily Fowler · 58m</div>
-                        </div>
+                    <li className="nav-item dropdown no-arrow mx-1" data-tip="Show Message">
+                        <a className="nav-link dropdown-toggle" href="/" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <FontAwesomeIcon icon={faEnvelope} />
+                            <span className="badge badge-danger badge-counter">7</span>
                         </a>
-                        <a className="dropdown-item text-center small text-gray-500" href="/">Read More Messages</a>
-                    </div>
+                        <div className="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="messagesDropdown">
+                            <h6 className="dropdown-header">
+                            Message Center
+                            </h6>
+                            <a className="dropdown-item d-flex align-items-center" href="/">
+                            <div className="dropdown-list-image mr-3">
+                                <img className="rounded-circle" src={userImage} alt="" />
+                                <div className="status-indicator bg-success"></div>
+                            </div>
+                            <div className="font-weight-bold">
+                                <div className="text-truncate">Hi there! I am wondering if you can help me with a problem I've been having.</div>
+                                <div className="small text-gray-500">Emily Fowler · 58m</div>
+                            </div>
+                            </a>
+                            <a className="dropdown-item text-center small text-gray-500" href="/">Read More Messages</a>
+                        </div>
                     </li>
 
                     <div className="topbar-divider d-none d-sm-block"></div>

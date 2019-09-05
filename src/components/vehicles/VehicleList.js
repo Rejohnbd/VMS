@@ -5,7 +5,10 @@ import driverImage from '../../images/driver-image.png';
 import ReactTooltip  from 'react-tooltip';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
-    faMapMarker
+    faMapMarker,
+    faAngleDown,
+    faEdit,
+    faOutdent
 } from '@fortawesome/free-solid-svg-icons';
 
 // Redux
@@ -18,11 +21,33 @@ class VehicleList extends React.Component {
         deviceList: [],
     }
 
+    getIndex=(deviceList,device)=>{
+        deviceList.forEach((dev)=>{
+            if(dev.id === device.id){
+                return deviceList.indexOf(dev);
+            }
+        })
+    }
+
     componentDidMount() {
         ref = firebase.database().ref().child('devices').orderByChild("uid").equalTo(this.props.user.userInfo._id)
         ref.on('child_added', data => {
             let deviceList=[...this.state.deviceList, data.val()]
             this.setState({deviceList})
+        })
+        ref.on('child_changed', data => {
+            let device = data.val()
+
+            let devices = this.state.deviceList;
+
+            let index = devices.findIndex(x => x.id === device.id);
+            console.log(index);            
+            devices[index]=device;
+
+            this.setState({deviceList:devices})
+
+            // console.log(device)
+            // this.state.deviceList.filter(device )
         })
     }
 
@@ -30,12 +55,11 @@ class VehicleList extends React.Component {
         ref.off()
     }
 
-
     render() { 
         return (
-            <Fragment>
+            <Fragment>                
                 <div className="d-sm-flex align-items-center justify-content-between mb-4">
-                    <h1 className="h3 mb-0 text-gray-800">Device List</h1>
+                    <h1 className="h3 mb-0 text-gray-800">Vehicle List</h1>
                 </div>
                 <div className="row">
                 {this.state.deviceList.map(device => (
@@ -43,6 +67,7 @@ class VehicleList extends React.Component {
                         <div className="card shadow mb-4">
                             <a href={'#deviceCard-'+device.id} className="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample">
                                 <h6 className="m-0 font-weight-bold text-primary">{(device.registration_number)}</h6>
+                                <FontAwesomeIcon icon={faAngleDown} className="vehicle-icon" />
                             </a>
                             <div className="collapse show" id={'deviceCard-'+device.id}>
                                 <div className="d-flex justify-content-center mt-3">
@@ -89,8 +114,12 @@ class VehicleList extends React.Component {
                             </div>
                             
                                 <div className="d-block card-footer mx-auto">
-                                    {/* <button onClick={this.editDeviceInfoHandler.bind(this, device)} className="btn btn-primary btn-circle mx-2" data-toggle="tooltip" data-placement="top" title="Edit Device Infomation"> <i className="fas fa-edit"></i></button>
-                                    <button onClick={this.vehicleReportHandler.bind(this, device)} className="btn btn-success btn-circle mx-2" data-toggle="tooltip" data-placement="top" title="View Device Report"> <i className="fas fa-outdent"></i></button> */}
+                                    {/* <button onClick={this.vehicleReportHandler.bind(this, device)} className="btn btn-success btn-circle mx-2" data-tip="View Vehicle Report">
+                                        <FontAwesomeIcon icon={faOutdent} />
+                                    </button> */}
+                                    <button onClick={() => this.props.editDeviceInfo(device)} className="btn btn-primary btn-circle mx-2" data-tip="Edit Vehicle Infomation"> 
+                                        <FontAwesomeIcon icon={faEdit} />
+                                    </button>
                                     <button onClick={()=>this.props.goToVehicleLocation(device)} className="btn btn-danger btn-circle mx-2" data-tip="View Vehicle Location"> 
                                         <FontAwesomeIcon icon={faMapMarker} />
                                     </button>

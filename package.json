@@ -17,6 +17,7 @@
     "react": "^16.9.0",
     "react-dom": "^16.8.6",
     "react-mapbox-gl": "^4.6.0",
+    "react-notifications-component": "^2.0.7",
     "react-redux": "^7.1.0",
     "react-scripts": "3.0.1",
     "react-tooltip": "^3.10.0",
@@ -43,5 +44,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "devDependencies": {}
 }

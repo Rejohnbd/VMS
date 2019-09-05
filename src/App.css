@@ -24,3 +24,9 @@
   width: 100px;
   height: 100px;
 }
+
+.mapboxgl-ctrl-bottom-left,
+.mapboxgl-ctrl-bottom-right {
+  display: none !important;
+}
+

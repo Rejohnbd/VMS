@@ -3,11 +3,12 @@ import PropTypes from 'prop-types';
 import { Topbar, AdminSidebar, UserSidebar, Footer } from './index'
 import { AdminDashboard, UserDashboard } from '../components/dashboard';
 import { DeviceList } from '../components/devices';
-import { VehicleList } from '../components/vehicles';
+import { VehicleList, EditVehicle } from '../components/vehicles';
 import { VehicleLocation } from '../components/location';
 
 // Redux
 import { connect } from 'react-redux';
+import { editVehicleInfo } from '../redux/actions/VehicleAction';
 
 
 class LayoutDashboard extends React.Component {
@@ -37,8 +38,13 @@ class LayoutDashboard extends React.Component {
         this.setState({ userState: stateStatus })
     }
 
-    vechicleLocationHandler = (devices) => {
+    vehicleLocationHandler = (devices) => {
         this.setState({ device: devices, userState: 'VEHICLE_LOCATION' })
+    }
+
+    editDeviceInfoHandler = (device) => {
+        this.props.editVehicleInfo(device);
+        this.setState({ userState: 'EDIT_VEHICLE' })
     }
 
     userStateRender = () => {
@@ -47,10 +53,15 @@ class LayoutDashboard extends React.Component {
                 return <UserDashboard />
             case 'VEHICLES_LIST':
                 return <VehicleList
-                    goToVehicleLocation={this.vechicleLocationHandler}
+                    goToVehicleLocation={this.vehicleLocationHandler}
+                    editDeviceInfo={this.editDeviceInfoHandler}
                     />
             case 'VEHICLE_LOCATION':
                 return <VehicleLocation device={this.state.device} />
+            case 'EDIT_VEHICLE':
+                return <EditVehicle
+                    changeUserState={this.userStateHandler}
+                    />
             default: 
                 return <UserDashboard />
         }
@@ -77,15 +88,18 @@ class LayoutDashboard extends React.Component {
 
 LayoutDashboard.propTypes = {
     user: PropTypes.object.isRequired,
+    vehicle: PropTypes.object.isRequired,
+    editVehicleInfo: PropTypes.func.isRequired
     // Authenticated Will be Chacked Here
 }
 
 const mapStateToProps = (state) => ({
-    user: state.user
+    user: state.user,
+    vehicle: state.vehicle
 })
 
 const mapActionsToProps = {
-
+    editVehicleInfo
 }
  
 export default connect(

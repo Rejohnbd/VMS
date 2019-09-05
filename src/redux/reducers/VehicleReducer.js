@@ -1,6 +1,8 @@
 import {
     GET_ALL_VEHICLES,
-    LOADING_DATA
+    LOADING_DATA,
+    EDIT_VEHICLE,
+    UPDATE_VEHICLE
 } from '../Types';
 
 const initialState = {
@@ -17,11 +19,22 @@ export default function(state = initialState, action){
                 loading: true
             }
         case GET_ALL_VEHICLES:
-            console.log(action.payload,'Vehicle Reducer')
+            // console.log(action.payload,'Vehicle Reducer')
+            //Not Work at this moment
             return {
                 ...state,
                 vehicles: action.payload,
                 loading: false
+            }
+        case EDIT_VEHICLE:
+            return {
+                ...state,
+                vehicle: action.payload
+            }
+        case UPDATE_VEHICLE:
+            return {
+                ...state,
+                vehicle: action.payload
             }
         default: 
             return state;

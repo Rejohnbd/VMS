@@ -1,6 +1,8 @@
 import React from 'react';
 import { Marker } from 'react-mapbox-gl';
-import activeCar from '../../images/active-car.png'
+import activeCar from '../../images/active-car.png';
+// Redux
+// import { connect } from 'react-redux';
 
 
 
