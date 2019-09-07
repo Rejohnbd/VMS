@@ -17,6 +17,5 @@ export const getUserAuth = (token) => (dispatch) => {
             // dispatch(authUserLogout());
         }
     }
-
     
 }

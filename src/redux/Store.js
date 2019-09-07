@@ -6,8 +6,9 @@ import UserReducer from './reducers/UserReducer';
 import DeviceReducer from './reducers/DeviceReducer';
 import VehicleReducer from './reducers/VehicleReducer';
 import MessageReducer from './reducers/MessageReducer';
+import PopupMessageReducer from './reducers/PopupMessageReducer';
 
-const initialSate = {};
+// const initialSate = {};
 const middleware = [thunk];
 
 const reducers = combineReducers({
@@ -15,12 +16,13 @@ const reducers = combineReducers({
     user: UserReducer,
     device: DeviceReducer,
     vehicle: VehicleReducer,
-    message: MessageReducer
+    message: MessageReducer,
+    popupMessage: PopupMessageReducer
 });
 
 const store = createStore(
     reducers,
-    initialSate,
+    // initialSate,
     compose(
         applyMiddleware(...middleware),
         window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()

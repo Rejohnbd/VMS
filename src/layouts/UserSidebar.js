@@ -2,9 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
-    faTruck, 
+    faTruck,
+    faCarSide, 
     faTachometerAlt,
-    faList,
+    faUser,
     faTable,
     faPowerOff,
     faArrowLeft
@@ -12,7 +13,6 @@ import {
 // import { faBell } from '@fortawesome/fontawesome-svg-core';
 // Redux
 import { connect } from "react-redux";
-// import { getVehicleList } from '../redux/actions/VehicleAction';
 
 class UserSidebar extends React.Component {
     state = {  }
@@ -26,6 +26,14 @@ class UserSidebar extends React.Component {
         this.props.changeUserState('VEHICLES_LIST');
     }
 
+    selectUserProfile = () => {
+        this.props.changeUserState('USER_PROFILE')
+    }
+
+    logoutHandler = () => {
+        this.props.logoutUser();
+    }
+
     render() { 
         return (
             <ul className="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
@@ -36,7 +44,6 @@ class UserSidebar extends React.Component {
                     <div className="sidebar-brand-text mx-3">VMS</div>
                 </button>
                 <hr className="sidebar-divider my-0" />
-                {/* Client Users Section */}
                 <li className="nav-item active">
                     <button onClick={this.selectDashboard} className="nav-link">
                         <FontAwesomeIcon icon={faTachometerAlt} />
@@ -49,26 +56,27 @@ class UserSidebar extends React.Component {
                 </div>
                 <li className="nav-item">
                     <button onClick={this.selectVehicleList} className="nav-link">
-                        <FontAwesomeIcon icon={faList} />
+                        <FontAwesomeIcon icon={faCarSide} />
                         <span> All Vehicle List</span>
                     </button>
                 </li>
+                <hr className="sidebar-divider" />
+                <div className="sidebar-heading">
+                    Profile Info.
+                </div>
                 <li className="nav-item">
-                    <a className="nav-link" href="/l">
-                        <FontAwesomeIcon icon={faTable} />
-                        <span> Assigned Device List</span>
-                    </a>
+                    <button onClick={this.selectUserProfile} className="nav-link">
+                        <FontAwesomeIcon icon={faUser} />
+                        <span> User Profile</span>
+                    </button>
                 </li>
-
-
                 <hr className="sidebar-divider" />
                 <li className="nav-item">
-                    <button onClick={this.userLogout} className="nav-link">
+                    <button onClick={this.logoutHandler} className="nav-link">
                         <FontAwesomeIcon icon={faPowerOff} />
                         <span> Logout</span>
                     </button>
                 </li>
-                
                 <hr className="sidebar-divider d-none d-md-block" />
                 <div className="text-center d-none d-md-inline">
                     <button className="rounded-circle border-0" id="sidebarToggle"></button>
@@ -91,5 +99,4 @@ const mapStateToProps = (state) => ({
  
 export default connect(
     mapStateToProps,
-    // { getVehicleList }
 )(UserSidebar);

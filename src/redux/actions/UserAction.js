@@ -2,6 +2,7 @@ import FireConf from '../../config/FirebaseConfig';
 import axios from 'axios';
 import {
     GET_USER,
+    SET_UNAUTHENTICATED
 } from '../Types';
 
 import { 
@@ -70,4 +71,8 @@ export const userAddToDb = (userData) => (dispatch) => {
             //console.log(res.config.data.stsTokenManager.accessToken);
         })
         .catch(err => console.error(err));
+}
+
+export const logoutUser = () => (dispatch) => {
+    dispatch({ type: SET_UNAUTHENTICATED })
 }

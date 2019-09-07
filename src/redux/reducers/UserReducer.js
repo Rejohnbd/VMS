@@ -5,13 +5,14 @@ import {
 
 const initialSate = {
     authenticated: false,
+    userType: null,
     userInfo: {
         // name: '',
         // email: '',
         // contact: '',
         // image: '',
-        userType: 'user'
     }
+
 }
 
 export default function(state = initialSate, action){
@@ -20,6 +21,7 @@ export default function(state = initialSate, action){
             return {
                 ...state,
                 authenticated: true,
+                userType: 'admin',
                 userInfo: action.payload
             };
         case SET_UNAUTHENTICATED:

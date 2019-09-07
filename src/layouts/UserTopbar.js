@@ -20,9 +20,17 @@ import { connect } from 'react-redux';
 
 
 
+class UserTopbar extends React.Component {
 
-class Topbar extends React.Component {
- 
+    selectUserProfile = () => {
+        console.log('called')
+        this.props.changeUserState('USER_PROFILE')
+    }
+
+    logoutHandler = () => {
+        this.props.logoutUser()
+    }
+
     render() {
       
         const { 
@@ -53,7 +61,6 @@ class Topbar extends React.Component {
                 </form>
                 
                 <ul className="navbar-nav ml-auto">
-                    
                     <li className="nav-item dropdown no-arrow mx-1" data-tip="Show Notification">
                         <a className="nav-link dropdown-toggle" href="/" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <FontAwesomeIcon icon={faBell} />
@@ -117,10 +124,10 @@ class Topbar extends React.Component {
                         
                     </a>
                     <div className="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                        <a className="dropdown-item" href="/">
-                        <FontAwesomeIcon className="mr-2 text-gray-400" icon={faUser} />
-                        Profile
-                        </a>
+                        <button className="dropdown-item" onClick={this.selectUserProfile}>
+                            <FontAwesomeIcon className="mr-2 text-gray-400" icon={faUser} />
+                            Profile
+                        </button>
                         <a className="dropdown-item" href="/">
                         <FontAwesomeIcon className="mr-2 text-gray-400" icon={faCogs} />
                         Settings
@@ -130,10 +137,10 @@ class Topbar extends React.Component {
                         Activity Log
                         </a>
                         <div className="dropdown-divider"></div>
-                        <a className="dropdown-item" href="/" data-toggle="modal" data-target="#logoutModal">
-                        <FontAwesomeIcon className="mr-2 text-gray-400" icon={faSignOutAlt} />
-                        Logout
-                        </a>
+                        <button className="dropdown-item" onClick={this.logoutHandler} >
+                            <FontAwesomeIcon className="mr-2 text-gray-400" icon={faSignOutAlt} />
+                            Logout
+                        </button>
                     </div>
                     </li>
 
@@ -143,7 +150,7 @@ class Topbar extends React.Component {
     }
 }
 
-Topbar.propTypes = {
+UserTopbar.propTypes = {
     user: PropTypes.object.isRequired
 }
 
@@ -151,4 +158,6 @@ const mapStateToProps = (state) => ({
     user: state.user
 })
  
-export default connect(mapStateToProps)(Topbar);
+export default connect(
+    mapStateToProps
+)(UserTopbar);

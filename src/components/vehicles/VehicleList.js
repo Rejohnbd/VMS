@@ -10,6 +10,7 @@ import {
     faEdit,
     faOutdent
 } from '@fortawesome/free-solid-svg-icons';
+import { store } from 'react-notifications-component';
 
 // Redux
 import { connect } from 'react-redux';
@@ -19,14 +20,7 @@ let ref = null;
 class VehicleList extends React.Component {
     state = {
         deviceList: [],
-    }
-
-    getIndex=(deviceList,device)=>{
-        deviceList.forEach((dev)=>{
-            if(dev.id === device.id){
-                return deviceList.indexOf(dev);
-            }
-        })
+        addNotification: false
     }
 
     componentDidMount() {
@@ -37,17 +31,13 @@ class VehicleList extends React.Component {
         })
         ref.on('child_changed', data => {
             let device = data.val()
-
             let devices = this.state.deviceList;
-
-            let index = devices.findIndex(x => x.id === device.id);
-            console.log(index);            
+            let index = devices.findIndex(x => x.id === device.id);     
             devices[index]=device;
-
-            this.setState({deviceList:devices})
-
+            this.setState({ deviceList: devices, addNotification: true })
             // console.log(device)
             // this.state.deviceList.filter(device )
+            // store.removeNotification(nextProps.popupMessage.id)
         })
     }
 
@@ -56,8 +46,13 @@ class VehicleList extends React.Component {
     }
 
     render() { 
+        const { popupMessage } = this.props;
+        let notificationMarkup = this.state.addNotification ? (store.addNotification(
+            popupMessage
+        )) : null;
         return (
-            <Fragment>                
+            <Fragment> 
+                {/* { notificationMarkup } */}
                 <div className="d-sm-flex align-items-center justify-content-between mb-4">
                     <h1 className="h3 mb-0 text-gray-800">Vehicle List</h1>
                 </div>
@@ -114,9 +109,9 @@ class VehicleList extends React.Component {
                             </div>
                             
                                 <div className="d-block card-footer mx-auto">
-                                    {/* <button onClick={this.vehicleReportHandler.bind(this, device)} className="btn btn-success btn-circle mx-2" data-tip="View Vehicle Report">
+                                    <button onClick={() => this.props.vehicleReport(device)} className="btn btn-success btn-circle mx-2" data-tip="View Vehicle Report">
                                         <FontAwesomeIcon icon={faOutdent} />
-                                    </button> */}
+                                    </button>
                                     <button onClick={() => this.props.editDeviceInfo(device)} className="btn btn-primary btn-circle mx-2" data-tip="Edit Vehicle Infomation"> 
                                         <FontAwesomeIcon icon={faEdit} />
                                     </button>
@@ -138,12 +133,14 @@ class VehicleList extends React.Component {
 
 VehicleList.propTypes = {
     user: PropTypes.object.isRequired,
+    popupMessage: PropTypes.object.isRequired
     // vehicle: PropTypes.object.isRequired,
     // getVehicleList: PropTypes.func.isRequired
 }
 
 const mapStateToProps = (state) => ({
     user: state.user,
+    popupMessage: state.popupMessage
 })
 
 const mapActionsToProps = {

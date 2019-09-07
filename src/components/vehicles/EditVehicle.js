@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { EditDeviceTextInputGroup } from '../../utils/';
 import driverImage from '../../images/driver-image.png';
 
-// import { store } from 'react-notifications-component';
+
 // Redux
 import { connect } from 'react-redux';
 import { updateVehicleInfo } from '../../redux/actions/VehicleAction';
@@ -29,7 +29,6 @@ class EditVehicle extends React.Component {
         e.preventDefault();
         let name= e.target.name
         let value = e.target.value
-        console.log(name, value)
         let device = this.state.device
         device[name] = value 
         
@@ -102,20 +101,6 @@ class EditVehicle extends React.Component {
             }
         }
         fd.append('mileage', this.state.device.mileage);
-        // store.addNotification({
-        //     title: "Wonderful!",
-        //     message: "teodosii@react-notifications-component",
-        //     type: "success",
-        //     insert: "top",
-        //     container: "top-right",
-        //     animationIn: ["animated", "fadeIn"],
-        //     animationOut: ["animated", "fadeOut"],
-        //     dismiss: {
-        //       duration: 5000,
-        //       onScreen: true
-        //     }
-        //   });
-
         this.props.updateVehicleInfo(this.props.vehicle.vehicle.id, fd);
         this.props.changeUserState('VEHICLES_LIST');
     }

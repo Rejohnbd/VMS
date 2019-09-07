@@ -1,4 +1,9 @@
 import axios from 'axios';
+import { 
+    vehicleUpdateSuccessfully,
+    
+} from './PopupMessageAction';
+
 import {
     EDIT_VEHICLE,
     UPDATE_VEHICLE
@@ -32,7 +37,7 @@ export const updateVehicleInfo = (id, data) => (dispatch) => {
         .then(res => {
             console.log(res)
             if(res.status === 201){
-                
+                dispatch(vehicleUpdateSuccessfully());
                 dispatch({ 
                     type: UPDATE_VEHICLE,
                     payload: res.data

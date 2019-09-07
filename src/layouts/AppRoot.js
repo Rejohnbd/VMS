@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 // import jwtDecode from 'jwt-decode';
 // Redux
 import { connect } from 'react-redux';
-
+import { logoutUser } from '../redux/actions/UserAction';
 
 
 class AppRoot extends React.Component {
@@ -18,16 +18,22 @@ class AppRoot extends React.Component {
         }
     }
 
+    logoutHandler = () => {
+        this.props.logoutUser();
+        this.setState({ authenticated: false })
+    }
+
     render() {
             const authenticated = this.state.authenticated;
         return (
-             authenticated ? <LayoutDashboard /> : <LayoutLogin />
+             authenticated ? <LayoutDashboard logoutUser={this.logoutHandler} /> : <LayoutLogin />
         );
     }
 }
 
 AppRoot.propTypes = {
-    user: PropTypes.object.isRequired
+    user: PropTypes.object.isRequired,
+    logoutUser: PropTypes.func.isRequired
 }
 
 const mapStateToProps = (state) => ({
@@ -36,5 +42,5 @@ const mapStateToProps = (state) => ({
  
 export default connect(
     mapStateToProps,
-    null
+    {logoutUser}
 )(AppRoot);
