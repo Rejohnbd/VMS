@@ -5,7 +5,7 @@ import { AdminDashboard, UserDashboard } from '../components/dashboard';
 import { DeviceList } from '../components/devices';
 import { VehicleList, EditVehicle, VehicleReport } from '../components/vehicles';
 import { VehicleLocation } from '../components/location';
-import { UserProfile } from '../components/users';
+import { UserProfile, AdminProfile } from '../components/profile';
 
 // Redux
 import { connect } from 'react-redux';
@@ -29,6 +29,8 @@ class LayoutDashboard extends React.Component {
                 return <AdminDashboard />
             case 'DEVICES_LIST':
                 return <DeviceList />
+            case 'ADMIN_PROFILE':
+                return <AdminProfile />
             default:
                 return <AdminDashboard />
         }
@@ -86,6 +88,7 @@ class LayoutDashboard extends React.Component {
                 { userType === 'admin' 
                   ? <AdminSidebar 
                         changeAdminState={this.adminStateHandler}
+                        logoutUser={this.props.logoutUser}
                     />
                   : <UserSidebar 
                         changeUserState={this.userStateHandler} 
@@ -95,11 +98,14 @@ class LayoutDashboard extends React.Component {
                 <div id="content-wrapper" className="d-flex flex-column">
                     <div id="content">
                         { userType === 'admin' 
-                            ?  <AdminTopbar  />
+                            ?  <AdminTopbar
+                                changeAdminState={this.adminStateHandler}
+                                logoutUser={this.props.logoutUser}
+                                />
                             : <UserTopbar  
                                 changeUserState={this.userStateHandler}
                                 logoutUser={this.props.logoutUser}
-                            />
+                                />
                         }
                         <div className="container-fluid">
                             {userType === 'admin' ? this.adminSateRender() : this.userStateRender()}

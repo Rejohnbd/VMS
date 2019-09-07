@@ -5,6 +5,7 @@ import {
     faTachometerAlt,
     faList,
     faTable,
+    faUser,
     faPowerOff,
     faArrowLeft
 } from '@fortawesome/free-solid-svg-icons';
@@ -22,6 +23,15 @@ class AdminSidebar extends React.Component {
     selectDeviceList = () => {
         this.props.changeAdminState('DEVICES_LIST');
     }
+
+    selectAdminProfile = () => {
+        this.props.changeAdminState('ADMIN_PROFILE')
+    }
+
+    logoutHandler = () => {
+        this.props.logoutUser();
+    }
+
     render() { 
         return (
             <ul className="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
@@ -70,8 +80,18 @@ class AdminSidebar extends React.Component {
                     </a>
                 </li>
                 <hr className="sidebar-divider" />
+                <div className="sidebar-heading">
+                    Profile Info.
+                </div>
                 <li className="nav-item">
-                    <button onClick={this.userLogout} className="nav-link">
+                    <button onClick={this.selectAdminProfile} className="nav-link">
+                        <FontAwesomeIcon icon={faUser} />
+                        <span> Admin Profile</span>
+                    </button>
+                </li>
+                <hr className="sidebar-divider" />
+                <li className="nav-item">
+                    <button onClick={this.logoutHandler} className="nav-link">
                         <FontAwesomeIcon icon={faPowerOff} />
                         <span> Logout</span>
                     </button>

@@ -22,6 +22,14 @@ import { connect } from 'react-redux';
 
 
 class AdminTopbar extends React.Component {
+
+    selectAdminProfile = () => {
+        this.props.changeAdminState('ADMIN_PROFILE')
+    }
+
+    logoutHandler = () => {
+        this.props.logoutUser();
+    }
  
     render() {
       
@@ -117,10 +125,10 @@ class AdminTopbar extends React.Component {
                         
                     </a>
                     <div className="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                        <a className="dropdown-item" href="/">
-                        <FontAwesomeIcon className="mr-2 text-gray-400" icon={faUser} />
-                        Profile
-                        </a>
+                        <button className="dropdown-item" onClick={this.selectAdminProfile}>
+                            <FontAwesomeIcon className="mr-2 text-gray-400" icon={faUser} />
+                            Profile
+                        </button>
                         <a className="dropdown-item" href="/">
                         <FontAwesomeIcon className="mr-2 text-gray-400" icon={faCogs} />
                         Settings
@@ -130,10 +138,10 @@ class AdminTopbar extends React.Component {
                         Activity Log
                         </a>
                         <div className="dropdown-divider"></div>
-                        <a className="dropdown-item" href="/" data-toggle="modal" data-target="#logoutModal">
-                        <FontAwesomeIcon className="mr-2 text-gray-400" icon={faSignOutAlt} />
-                        Logout
-                        </a>
+                        <button className="dropdown-item" onClick={this.logoutHandler}>
+                            <FontAwesomeIcon className="mr-2 text-gray-400" icon={faSignOutAlt} />
+                            Logout
+                        </button>
                     </div>
                     </li>
 

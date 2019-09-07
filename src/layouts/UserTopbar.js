@@ -23,7 +23,6 @@ import { connect } from 'react-redux';
 class UserTopbar extends React.Component {
 
     selectUserProfile = () => {
-        console.log('called')
         this.props.changeUserState('USER_PROFILE')
     }
 
