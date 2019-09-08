@@ -41,7 +41,7 @@ class UserTopbar extends React.Component {
                 contact,
                 image
             }
-         } = this.props.user;
+         } = this.props.auth;
         
         return (
             <nav className="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
@@ -150,11 +150,11 @@ class UserTopbar extends React.Component {
 }
 
 UserTopbar.propTypes = {
-    user: PropTypes.object.isRequired
+    auth: PropTypes.object.isRequired
 }
 
 const mapStateToProps = (state) => ({
-    user: state.user
+    auth: state.auth
 })
  
 export default connect(

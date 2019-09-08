@@ -14,7 +14,7 @@ const middleware = [thunk];
 const reducers = combineReducers({
     auth: AuthReducer,
     user: UserReducer,
-    device: DeviceReducer,
+    // device: DeviceReducer,
     vehicle: VehicleReducer,
     message: MessageReducer,
     popupMessage: PopupMessageReducer

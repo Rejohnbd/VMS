@@ -3,7 +3,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
     faTruck, 
     faTachometerAlt,
-    faList,
+    faUsers,
+    faUserPlus,
+    faFolder,
+    faFolderPlus,
+    faFolderMinus,
+    faPlusSquare,
     faTable,
     faUser,
     faPowerOff,
@@ -18,6 +23,10 @@ class AdminSidebar extends React.Component {
 
     selectDashboar = () => {
         this.props.changeAdminState('ADMIN_DASHBOARD');
+    }
+
+    selectUserList = () => {
+        this.props.changeAdminState('USERS_LIST');
     }
 
     selectDeviceList = () => {
@@ -50,34 +59,57 @@ class AdminSidebar extends React.Component {
                 </li>
                 <hr className="sidebar-divider" />
                 <div className="sidebar-heading">
-                    Device Info.
-                </div>
-                <li className="nav-item">
-                    <button onClick={this.selectDeviceList} className="nav-link">
-                        <FontAwesomeIcon icon={faList} />
-                        <span> All Device List</span>
-                    </button>
-                </li>
-                <li className="nav-item">
-                    <a className="nav-link" href="/l">
-                        <FontAwesomeIcon icon={faTable} />
-                        <span> Assigned Device List</span>
-                    </a>
-                </li>
-                <div className="sidebar-heading">
                     Users Info.
                 </div>
                 <li className="nav-item">
-                    <button onClick={this.selectDeviceList} className="nav-link">
-                        <FontAwesomeIcon icon={faList} />
+                    <button onClick={this.selectUserList} className="nav-link">
+                        <FontAwesomeIcon icon={faUsers} />
                         <span> All Users List</span>
                     </button>
                 </li>
                 <li className="nav-item">
-                    <a className="nav-link" href="/l">
-                        <FontAwesomeIcon icon={faTable} />
+                    <button className="nav-link">
+                        <FontAwesomeIcon icon={faUserPlus} />
+                        <span> Add New User</span>
+                    </button>
+                </li>
+                <hr className="sidebar-divider" />
+                <div className="sidebar-heading">
+                    Device Info.
+                </div>
+                <li className="nav-item">
+                    <button onClick={this.selectDeviceList} className="nav-link">
+                        <FontAwesomeIcon icon={faFolder} />
+                        <span> All Device List</span>
+                    </button>
+                </li>
+                <li className="nav-item">
+                    <button className="nav-link">
+                        <FontAwesomeIcon icon={faFolderPlus} />
                         <span> Assigned Device List</span>
-                    </a>
+                    </button>
+                </li>
+                <li className="nav-item">
+                    <button className="nav-link">
+                        <FontAwesomeIcon icon={faFolderMinus} />
+                        <span> Unassigned Device List</span>
+                    </button>
+                </li>
+                <li className="nav-item">
+                    <button className="nav-link">
+                        <FontAwesomeIcon icon={faPlusSquare} />
+                        <span> Add New Device</span>
+                    </button>
+                </li>
+                <hr className="sidebar-divider" />
+                <div className="sidebar-heading">
+                    Notification Info.
+                </div>
+                <li className="nav-item">
+                    <button className="nav-link">
+                        <FontAwesomeIcon icon={faPlusSquare} />
+                        <span> Send Message</span>
+                    </button>
                 </li>
                 <hr className="sidebar-divider" />
                 <div className="sidebar-heading">

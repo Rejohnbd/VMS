@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 // import jwtDecode from 'jwt-decode';
 // Redux
 import { connect } from 'react-redux';
-import { logoutUser } from '../redux/actions/UserAction';
+import { logoutUser } from '../redux/actions/AuthAction';
 
 
 class AppRoot extends React.Component {
@@ -13,8 +13,8 @@ class AppRoot extends React.Component {
     }
 
     componentWillReceiveProps(nextProps){
-        if(nextProps.user.authenticated){
-            this.setState({ authenticated: nextProps.user.authenticated })
+        if(nextProps.auth.authenticated){
+            this.setState({ authenticated: nextProps.auth.authenticated })
         }
     }
 
@@ -32,12 +32,12 @@ class AppRoot extends React.Component {
 }
 
 AppRoot.propTypes = {
-    user: PropTypes.object.isRequired,
+    auth: PropTypes.object.isRequired,
     logoutUser: PropTypes.func.isRequired
 }
 
 const mapStateToProps = (state) => ({
-    user: state.user
+    auth: state.auth
 })
  
 export default connect(

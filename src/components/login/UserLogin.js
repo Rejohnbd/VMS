@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { LoginTextInputGroup } from '../../utils';
 // Redux
 import { connect } from 'react-redux';
-import { userLogin } from '../../redux/actions/UserAction';
+import { userLogin } from '../../redux/actions/AuthAction';
 
 class UserLogin extends React.Component {
     state = {
@@ -87,7 +87,7 @@ class UserLogin extends React.Component {
 }
 
 UserLogin.propTypes = {
-    user: PropTypes.object.isRequired,
+    auth: PropTypes.object.isRequired,
     userLogin: PropTypes.func.isRequired
 }
 
@@ -96,7 +96,7 @@ const mapActionsToProps = {
 }
 
 const mapStateToProps = (state) => ({
-    user: state.user
+    auth: state.auth
 })
  
 export default connect(

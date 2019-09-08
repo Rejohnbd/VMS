@@ -42,13 +42,15 @@ class LayoutLogin extends React.Component {
 }
 
 LayoutLogin.propTypes = {
-    user: PropTypes.object.isRequired,
+    auth: PropTypes.object.isRequired,
     message: PropTypes.object.isRequired
 }
 
 const mapStateToProps = (state) => ({
-    user: state.user,
+    auth: state.auth,
     message: state.message
 })
  
-export default connect(mapStateToProps)(LayoutLogin);
+export default connect(
+    mapStateToProps
+)(LayoutLogin);

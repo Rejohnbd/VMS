@@ -24,7 +24,7 @@ class VehicleList extends React.Component {
     }
 
     componentDidMount() {
-        ref = firebase.database().ref().child('devices').orderByChild("uid").equalTo(this.props.user.userInfo._id)
+        ref = firebase.database().ref().child('devices').orderByChild("uid").equalTo(this.props.auth.userInfo._id)
         ref.on('child_added', data => {
             let deviceList=[...this.state.deviceList, data.val()]
             this.setState({deviceList})
@@ -34,7 +34,10 @@ class VehicleList extends React.Component {
             let devices = this.state.deviceList;
             let index = devices.findIndex(x => x.id === device.id);     
             devices[index]=device;
-            this.setState({ deviceList: devices, addNotification: true })
+            this.setState({ 
+                deviceList: devices, 
+                addNotification: true 
+            })
             // console.log(device)
             // this.state.deviceList.filter(device )
             // store.removeNotification(nextProps.popupMessage.id)
@@ -47,6 +50,7 @@ class VehicleList extends React.Component {
 
     render() { 
         const { popupMessage } = this.props;
+        // console.log(popupMessage)
         let notificationMarkup = this.state.addNotification ? (store.addNotification(
             popupMessage
         )) : null;
@@ -120,11 +124,9 @@ class VehicleList extends React.Component {
                                     </button>
                                     <ReactTooltip />
                                 </div>
-                         
                         </div>
                     </div>
                 ))}
-                    
                 </div>
             </Fragment>
         );
@@ -132,14 +134,14 @@ class VehicleList extends React.Component {
 }
 
 VehicleList.propTypes = {
-    user: PropTypes.object.isRequired,
+    auth: PropTypes.object.isRequired,
     popupMessage: PropTypes.object.isRequired
     // vehicle: PropTypes.object.isRequired,
     // getVehicleList: PropTypes.func.isRequired
 }
 
 const mapStateToProps = (state) => ({
-    user: state.user,
+    auth: state.auth,
     popupMessage: state.popupMessage
 })
 

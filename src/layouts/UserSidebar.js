@@ -87,13 +87,13 @@ class UserSidebar extends React.Component {
 }
 
 UserSidebar.propTypes = {
-    user: PropTypes.object.isRequired,
+    // auth: PropTypes.object.isRequired,
     // vehicle: PropTypes.object.isRequired,
     // getVehicleList: PropTypes.func.isRequired
 }
 
 const mapStateToProps = (state) => ({
-    user: state.user,
+    // auth: state.auth,
     // vehicle: state.vehicle
 })
  

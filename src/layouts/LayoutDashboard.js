@@ -6,10 +6,12 @@ import { DeviceList } from '../components/devices';
 import { VehicleList, EditVehicle, VehicleReport } from '../components/vehicles';
 import { VehicleLocation } from '../components/location';
 import { UserProfile, AdminProfile } from '../components/profile';
+import { UserList } from '../components/users';
 
 // Redux
 import { connect } from 'react-redux';
 import { editVehicleInfo } from '../redux/actions/VehicleAction';
+import {  } from '../redux/actions/UserAction';
 
 
 class LayoutDashboard extends React.Component {
@@ -27,6 +29,8 @@ class LayoutDashboard extends React.Component {
         switch(this.state.adminState){
             case 'ADMIN_DASHBOARD':
                 return <AdminDashboard />
+            case 'USERS_LIST':
+                return <UserList />
             case 'DEVICES_LIST':
                 return <DeviceList />
             case 'ADMIN_PROFILE':
@@ -81,7 +85,7 @@ class LayoutDashboard extends React.Component {
     }
 
     render() {
-        const { userType  } = this.props.user; 
+        const { userType  } = this.props.auth; 
         // const { userType } = this.props.user.userType; 
         return (
             <div id='wrapper'>
@@ -119,14 +123,14 @@ class LayoutDashboard extends React.Component {
 }
 
 LayoutDashboard.propTypes = {
-    user: PropTypes.object.isRequired,
+    auth: PropTypes.object.isRequired,
     // vehicle: PropTypes.object.isRequired,
     editVehicleInfo: PropTypes.func.isRequired
     // Authenticated Will be Chacked Here
 }
 
 const mapStateToProps = (state) => ({
-    user: state.user,
+    auth: state.auth
     // vehicle: state.vehicle
 })
 

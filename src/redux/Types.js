@@ -1,5 +1,5 @@
-// USER
-export const GET_USER = 'GET_USER';
+// AUTH USER
+export const GET_AUTHUSER = 'GET_AUTHUSER';
 export const SET_UNAUTHENTICATED = 'SET_UNAUTHENTICATED';
 export const REGISTER_USER = 'REGISTER_USER';
 // VEHELE
