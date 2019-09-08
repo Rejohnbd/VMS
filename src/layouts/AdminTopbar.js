@@ -42,7 +42,7 @@ class AdminTopbar extends React.Component {
                 contact,
                 image
             }
-         } = this.props.user;
+         } = this.props.auth;
         
         return (
             <nav className="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
@@ -152,11 +152,11 @@ class AdminTopbar extends React.Component {
 }
 
 AdminTopbar.propTypes = {
-    user: PropTypes.object.isRequired
+    auth: PropTypes.object.isRequired
 }
 
 const mapStateToProps = (state) => ({
-    user: state.user
+    auth: state.auth
 })
  
 export default connect(mapStateToProps)(AdminTopbar);
