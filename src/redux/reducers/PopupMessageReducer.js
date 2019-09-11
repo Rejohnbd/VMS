@@ -1,5 +1,6 @@
 import {
     VEHICLE_UPDATE_SUCSS,
+    DEVICE_ADDED_SUCSS
 } from '../Types';
 
 const initialState = {
@@ -29,6 +30,13 @@ export default function(state = initialState, action) {
                 type: 'success',
                 title: 'Vehicle Update',
                 message: 'Your Vehicle Info Update Successfully.'
+            }
+        case DEVICE_ADDED_SUCSS:
+            return {
+                ...state,
+                type: 'success',
+                title: 'Device Added',
+                message: 'A New Device Added Successfully.'
             }
         default: 
             return state;

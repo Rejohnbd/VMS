@@ -1,7 +1,10 @@
-import {  } from '../Types';
+import { 
+    ADD_DEVICE
+ } from '../Types';
 
 const initialState = {
-    
+    devices: [],
+    device: {}
 }
 
 export default function(state = initialState, action){

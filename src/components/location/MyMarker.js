@@ -16,7 +16,7 @@ const MyMarker = (props) => {
         <Marker
             coordinates={[ props.data.lng, props.data.lat]}
             anchor="center">
-            <img src={activeCar} style={markerRotate} width="50px" height="50px"/>
+            <img src={activeCar} style={markerRotate} width="50px" height="50px" alt="Location Car"/>
         </Marker>
     );
 }

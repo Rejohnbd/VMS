@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
-const EditDeviceTextInputGroup = ({
+const EditVehicleTextInputGroup = ({
     id,
     label,
     name,
@@ -56,7 +56,7 @@ const EditDeviceTextInputGroup = ({
     );
 }
 
-EditDeviceTextInputGroup.propTypes = {
+EditVehicleTextInputGroup.propTypes = {
     id: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
@@ -73,4 +73,4 @@ EditDeviceTextInputGroup.propTypes = {
     error: PropTypes.string
 }
 
-export default EditDeviceTextInputGroup;
+export default EditVehicleTextInputGroup;

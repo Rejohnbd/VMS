@@ -9,10 +9,9 @@ import {
     faFolderPlus,
     faFolderMinus,
     faPlusSquare,
-    faTable,
     faUser,
-    faPowerOff,
-    faArrowLeft
+    faBell,
+    faPowerOff
 } from '@fortawesome/free-solid-svg-icons';
 // import { faBell } from '@fortawesome/fontawesome-svg-core';
 // Redux 
@@ -33,8 +32,16 @@ class AdminSidebar extends React.Component {
         this.props.changeAdminState('DEVICES_LIST');
     }
 
+    addNewDevice = () => {
+        this.props.changeAdminState('ADD_DEVICE');
+    }
+
     selectAdminProfile = () => {
-        this.props.changeAdminState('ADMIN_PROFILE')
+        this.props.changeAdminState('ADMIN_PROFILE');
+    }
+
+    sendNotification = () => {
+        this.props.changeAdminState('SEND_NOTIFICATION');
     }
 
     logoutHandler = () => {
@@ -96,7 +103,7 @@ class AdminSidebar extends React.Component {
                     </button>
                 </li>
                 <li className="nav-item">
-                    <button className="nav-link">
+                    <button onClick={this.addNewDevice} className="nav-link">
                         <FontAwesomeIcon icon={faPlusSquare} />
                         <span> Add New Device</span>
                     </button>
@@ -106,8 +113,8 @@ class AdminSidebar extends React.Component {
                     Notification Info.
                 </div>
                 <li className="nav-item">
-                    <button className="nav-link">
-                        <FontAwesomeIcon icon={faPlusSquare} />
+                    <button onClick={this.sendNotification} className="nav-link">
+                        <FontAwesomeIcon icon={faBell} />
                         <span> Send Message</span>
                     </button>
                 </li>

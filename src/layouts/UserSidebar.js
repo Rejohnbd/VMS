@@ -1,14 +1,12 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
     faTruck,
     faCarSide, 
     faTachometerAlt,
-    faUser,
-    faTable,
-    faPowerOff,
-    faArrowLeft
+    faUser,    
+    faPowerOff
 } from '@fortawesome/free-solid-svg-icons';
 // import { faBell } from '@fortawesome/fontawesome-svg-core';
 // Redux

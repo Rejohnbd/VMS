@@ -1,4 +1,5 @@
 import LoginTextInputGroup from './LoginTextInputGroup';
-import EditDeviceTextInputGroup from './EditDeviceTextInputGroup';
+import EditVehicleTextInputGroup from './EditVehicleTextInputGroup';
+import DeviceTextInputGroup from './DeviceTextInputGroup';
 
-export { LoginTextInputGroup, EditDeviceTextInputGroup }
+export { LoginTextInputGroup, EditVehicleTextInputGroup, DeviceTextInputGroup }

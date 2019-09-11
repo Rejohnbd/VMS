@@ -2,11 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { AdminTopbar, UserTopbar, AdminSidebar, UserSidebar, Footer } from './index'
 import { AdminDashboard, UserDashboard } from '../components/dashboard';
-import { DeviceList } from '../components/devices';
+import { DeviceList, AddDevice } from '../components/devices';
 import { VehicleList, EditVehicle, VehicleReport } from '../components/vehicles';
 import { VehicleLocation } from '../components/location';
 import { UserProfile, AdminProfile } from '../components/profile';
 import { UserList } from '../components/users';
+import { Notification } from '../components/notification';
 
 // Redux
 import { connect } from 'react-redux';
@@ -33,8 +34,12 @@ class LayoutDashboard extends React.Component {
                 return <UserList />
             case 'DEVICES_LIST':
                 return <DeviceList />
+            case 'ADD_DEVICE':
+                return <AddDevice />
             case 'ADMIN_PROFILE':
                 return <AdminProfile />
+            case 'SEND_NOTIFICATION':
+                return <Notification />
             default:
                 return <AdminDashboard />
         }

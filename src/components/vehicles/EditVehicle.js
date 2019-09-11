@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { EditDeviceTextInputGroup } from '../../utils/';
+import { EditVehicleTextInputGroup } from '../../utils/';
 import driverImage from '../../images/driver-image.png';
 
 
@@ -120,7 +120,7 @@ class EditVehicle extends React.Component {
                     </div>
                     <div className="card-body">
                     
-                        <EditDeviceTextInputGroup
+                        <EditVehicleTextInputGroup
                             id="registrationNumber"
                             label="Registration Number"
                             type="text"
@@ -131,7 +131,7 @@ class EditVehicle extends React.Component {
                             error={this.state.errors.registration_number} 
                         />
 
-                        <EditDeviceTextInputGroup
+                        <EditVehicleTextInputGroup
                             id="centerNumber"
                             label="Center Number"
                             type="number"
@@ -142,7 +142,7 @@ class EditVehicle extends React.Component {
                             error={this.state.errors.center_number} 
                         />
 
-                        <EditDeviceTextInputGroup
+                        <EditVehicleTextInputGroup
                             id="driverName"
                             label="Driver Name"
                             type="text"
@@ -153,7 +153,7 @@ class EditVehicle extends React.Component {
                             error={this.state.errors.driver_name} 
                         />
 
-                        <EditDeviceTextInputGroup
+                        <EditVehicleTextInputGroup
                             id="driverPhone"
                             label="Driver Phone"
                             type="text"
@@ -164,7 +164,7 @@ class EditVehicle extends React.Component {
                             error={this.state.errors.driver_phone}
                         />
 
-                        <EditDeviceTextInputGroup
+                        <EditVehicleTextInputGroup
                             id="mileage"
                             label="Vehicle Milage"
                             type="number"

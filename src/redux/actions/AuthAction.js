@@ -1,5 +1,5 @@
 import FireConf from '../../config/FirebaseConfig';
-import jwtDecode from 'jwt-decode';
+// import jwtDecode from 'jwt-decode';
 import axios from 'axios';
 import {
     GET_AUTHUSER,
