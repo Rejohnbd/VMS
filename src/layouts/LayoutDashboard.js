@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { AdminTopbar, UserTopbar, AdminSidebar, UserSidebar, Footer } from './index'
 import { AdminDashboard, UserDashboard } from '../components/dashboard';
-import { DeviceList, AddDevice } from '../components/devices';
+import { DeviceList, AddDevice  } from '../components/devices';
 import { VehicleList, EditVehicle, VehicleReport } from '../components/vehicles';
 import { VehicleLocation } from '../components/location';
 import { UserProfile, AdminProfile } from '../components/profile';

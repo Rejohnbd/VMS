@@ -2,81 +2,20 @@ import React, {Fragment} from 'react';
 import PropTypes from 'prop-types';
 // import styled from 'styled-components';
 // import DataTable from 'react-data-table-component';
-import DataTable from 'react-redux-datatable';
-import 'react-redux-datatable/dist/styles.css'
+import { Datatable } from "@o2xp/react-datatable";
 // Redux
 import { connect } from 'react-redux';
 import { getUsers } from '../../redux/actions/UserAction';
 
-// const columns = [
-//   {
-//     name: 'User Name',
-//     selector: 'name',
-//     sortable: true,
-//   },
-//   {
-//     name: 'User Email',
-//     selector: 'email',
-//     sortable: true
-//   },
-//   {
-//     name: 'User Phone',
-//     selector: 'contact',
-//     sortable: true,
-//   },
-//   {
-//     name: 'User Address',
-//     selector: 'address',
-//     sortable: true,
-//   },
-//   {
-//     name: 'User Organization',
-//     selector: 'organization_name',
-//     sortable: true,
-//   },
-//   {
-//     name: 'Action',
-//     selector: 'action'
-//     // allowOverFlow: true,
-//     // button: true
-//   },
-// ];
-
-const tableSettings = {
-  tableID: 'DataTable',
-  keyField: 'ref_id',
-  tableColumns: [
-      {
-          title: 'Ref',
-          key: 'ref_id',
-          filter: 'NumberFilter',
-          defaultValue: { comparator: '=' },
-      },
-      {
-          title: 'First Name',
-          key: 'first_name',
-      },
-      {
-          title: 'Surname',
-          key: 'surname',
-      },
-      {
-          title: 'Type',
-          key: 'type',
-          filter: 'SelectFilter',
-          filterOptions: {
-              Add: 'Add',
-              Amend: 'Amend',
-              Remove: 'Remove',
-          },
-      },
-  ],
-};
-
-
 
 class UserList extends React.Component {
     state = {}
+
+    actionsRow = ({ type, payload }) => {
+        console.log(type);
+        console.log(payload);
+      };   
+
 
     componentDidMount() {
         this.props.getUsers();
@@ -84,12 +23,36 @@ class UserList extends React.Component {
 
     render() {
       const { users } = this.props;
-      // console.log(users);
+    //   console.log(users)
+      let options  = {
+            keyColumn: 'id',
+            dimensions: {
+                datatable: {
+                    height: '600',
+                    width: '100%'
+                }
+            },
+            refreshRows: true,
+            features: {
+                canSearch: true,
+                canDownload: true,
+                canPrint: true,
+                // canRefreshRows: true,
+                canOrderColumns: true
+            },
+            data: {
+                columns: [ 
+                    { id: "name", label: "USER NAME" },
+                    { id: "contact", label: "USER PHONE" },
+                    { id: "email", label: "USER EMAIL" },
+                    { id: "organization_name", label: "USER ORGANIZATION" },
+                    { id: "address", label: "USER ADDRESS"}
+                ],
+                rows: users
+            }
+        } 
         return (
             <Fragment>
-                <div className="d-sm-flex align-items-center justify-content-between mb-4">
-                    <h1 className="h3 mb-0 text-gray-800">All Users List</h1>
-                </div>
                 <div className="card shadow mb-4" >
                     <div className="card-header py-3">
                         <h6 className="m-0 font-weight-bold text-center text-primary">All Users List </h6>
@@ -101,10 +64,10 @@ class UserList extends React.Component {
                         // fixedHeaderScrollHeight="6000px"
                         pagination
                     /> */}
-
-                <DataTable
-                      tableSettings={tableSettings}
-                      apiLocation={users}
+                    <Datatable 
+                        options={options}
+                        actions={this.actionsRow}
+                        
                     />
                 </div>
             </Fragment>
