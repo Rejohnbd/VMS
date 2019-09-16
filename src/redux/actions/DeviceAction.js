@@ -1,5 +1,6 @@
 import axios from 'axios';
 import {
+    GET_DEVICES,
     ADD_DEVICE
 } from '../Types';
 import {
@@ -7,6 +8,18 @@ import {
 } from '../actions/PopupMessageAction';
 
 const BASE_URL = 'http://118.67.215.190:8880/api/';
+
+export const getDevices = () => (dispatch) => {
+    axios.get(BASE_URL+'devices')
+        .then(res => {
+            console.log(res.data);
+            dispatch({
+                type: GET_DEVICES,
+                payload: res.data
+            })
+        })
+        .catch(err => console.log(err))
+}
 
 export const addDevice = (device) => (dispatch) => {
     axios.post(BASE_URL+'devices', device)

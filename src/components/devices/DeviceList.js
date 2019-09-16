@@ -1,65 +1,86 @@
 import React, { Fragment } from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { Datatable } from "@o2xp/react-datatable";
-
+// import MaterialTable from 'material-table';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { 
+    faEye,
+} from '@fortawesome/free-solid-svg-icons';
 // Redux
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
+import { getDevices } from '../../redux/actions/DeviceAction';
 
 
 
 class DeviceList extends React.Component {
     state = {  }
+
+    componentDidMount() {
+        this.props.getDevices();
+    }
+
     render() {
+        const { devices } = this.props;
+        console.log(devices)
         let options  = {
-            keyColumn: 'id',
             dimensions: {
                 datatable: {
-                    height: '600'
+                    height: '500',
+                    width: '100%'
+                },
+                row: {
+                    height: "60px"
                 }
             },
-            features: {
-                canSearch: true,
-                canDownload: true,
-                canPrint: true,
-                canOrderColumns: true
-            },
+            keyColumn: 'imei',
             data: {
                 columns: [ 
+                    { id: "imei", label: "DEVICE IMEI" },
+                    { id: "device_model", label: "DEVICE MODEL" },
+                    { id: "device_sim_number", label: "DEVICE SIM NUMBER" },
+                    { id: "registration_number", label: "REGISTRATION NUMBER" },
+                    { id: "is_inactive", label: "DEVICE STATUS" },
+                    { id: "vehicle_type", label: "VEHICLE TYPE"}
+                ],
+                rows: devices
+            },
+            features: {
+                selectionIcons: [
                     {
-                        id: "id",
-                        label: "id",
-                        colSize: "80px"
-                    },
-                    {
-                        id: "name",
-                        label: "name",
-                        colSize: "150px"
-                    },
-                    {
-                        id: "age",
-                        label: "age",
-                        colSize: "50px"
+                        title: 'View User',
+                        icon: <FontAwesomeIcon icon={faEye} style={{color: '#3f51b5'}} />,
+                        onClick: (user) => this.goToUserDetail(user)
                     },
                 ],
-                rows: [
-                    {
-                        id: "50cf",
-                        age: 28,
-                        name: "Kerr Mayo"
-                    },
-                    {
-                        id: "209",
-                        age: 34,
-                        name: "Freda Bowman"
-                    },
-                    {
-                        id: "2dd81ef",
-                        age: 14,
-                        name: "Becky Lawrence"
-                    }
-                ],
+                // canEdit: true,
+                // canDelete: true,
+                canPrint: true,
+                canDownload: true,
+                canSearch: true,
+                // canRefreshRows: true,
+                canOrderColumns: true,
+                canSelectRow: true,
+                canSaveUserConfiguration: true,
+                userConfiguration: {
+                    columnsOrder: ["imei", "device_model", "device_sim_number", "registration_number", "is_inactive", "vehicle_type"]
+                },
+                // additionalIcons: [ 
+                //     {
+                //         title: 'View User',
+                //         icon: <FontAwesomeIcon icon={faFolderPlus} />,
+                //         onClick: ()=>{console.log('got')} 
+                //     }
+                // ],
+                 
+                // selectionIcons: [
+                //     {
+                //       title: "Selected Rows",
+                //       icon: <DataUsage />,
+                //       onClick: rows => console.log(rows)
+                //     }
+                // ]
             }
-        } 
+        }
         return (
             <Fragment>
                 <div className="card shadow mb-4" >
@@ -76,14 +97,15 @@ class DeviceList extends React.Component {
 }
 
 DeviceList.propTypes = {
-
+    getDevices: PropTypes.func.isRequired,
+    devices: PropTypes.array.isRequired
 }
 
-const mapStateToProps = (state) => {
-
-}
+const mapStateToProps = (state) => ({
+    devices: state.device.devices
+})
  
 export default connect(
-    // mapStateToProps,
-    null
+    mapStateToProps,
+    {getDevices}
 )(DeviceList);
