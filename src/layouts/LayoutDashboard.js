@@ -6,7 +6,7 @@ import { DeviceList, AddDevice  } from '../components/devices';
 import { VehicleList, EditVehicle, VehicleReport } from '../components/vehicles';
 import { VehicleLocation } from '../components/location';
 import { UserProfile, AdminProfile } from '../components/profile';
-import { UserList } from '../components/users';
+import { UserList, UserDetails } from '../components/users';
 import { Notification } from '../components/notification';
 
 // Redux
@@ -18,6 +18,7 @@ import {  } from '../redux/actions/UserAction';
 class LayoutDashboard extends React.Component {
     state = {
         device: null,
+        user: null,
         adminState: '',
         userState: ''
     }
@@ -26,12 +27,20 @@ class LayoutDashboard extends React.Component {
         this.setState({ adminState: stateStatus })
     }
 
+    goToUserDetailsHandler = (user) => {
+        this.setState({ user: user, adminState: 'USER_DETAILS' })
+    }
+
     adminSateRender = () => {
         switch(this.state.adminState){
             case 'ADMIN_DASHBOARD':
                 return <AdminDashboard />
             case 'USERS_LIST':
-                return <UserList />
+                return <UserList
+                goToUserDetails = {this.goToUserDetailsHandler}
+                />
+            case 'USER_DETAILS':
+                return <UserDetails user = {this.state.user} />
             case 'DEVICES_LIST':
                 return <DeviceList />
             case 'ADD_DEVICE':
@@ -45,7 +54,7 @@ class LayoutDashboard extends React.Component {
         }
     }
 
-
+    // User Sidebar Action
     userStateHandler = (stateStatus) => {
         this.setState({ userState: stateStatus })
     }

@@ -38,7 +38,13 @@ class UserList extends React.Component {
             })
         }
 
-        console.log(user.length);
+        if(user.length == 1) {
+            let userObj =  {};
+            user.map(user=> {
+                userObj = user
+            })
+            this.props.goToUserDetails(userObj);
+        }
     }
 
     render() {
@@ -69,7 +75,7 @@ class UserList extends React.Component {
             features: {
                 selectionIcons: [
                     {
-                        title: 'View User',
+                        title: 'View User Details',
                         icon: <FontAwesomeIcon icon={faEye} style={{color: '#3f51b5'}} />,
                         onClick: (user) => this.goToUserDetail(user)
                     },

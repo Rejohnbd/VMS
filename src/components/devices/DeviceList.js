@@ -19,6 +19,26 @@ class DeviceList extends React.Component {
         this.props.getDevices();
     }
 
+    buildCustomTableBodyCell = ({ cellVal, column, is_inactive }) => {
+        let val;
+        // console.log(cellVal,'Cellval')
+        console.log(column)
+
+        switch(column.is_inactive){
+            case "boolean":
+                if (cellVal) {
+                val = <div style={{ color: "green", textAlign: "center" }}>Yes</div>;
+                } else {
+                val = <div style={{ color: "red", textAlign: "center" }}>No</div>;
+                }
+                break;
+            default:
+                val = <div style={{ color: "blue" }}>{cellVal}</div>;
+                break;
+        }
+        return val;
+    }
+
     render() {
         const { devices } = this.props;
         console.log(devices)
@@ -89,6 +109,7 @@ class DeviceList extends React.Component {
                     </div>
                     <Datatable 
                         options={options}
+                        CustomTableBodyCell={this.buildCustomTableBodyCell} 
                     />
                 </div>
             </Fragment>

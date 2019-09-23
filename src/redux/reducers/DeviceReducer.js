@@ -1,6 +1,5 @@
 import {
-    GET_DEVICES, 
-    ADD_DEVICE
+    GET_DEVICES
  } from '../Types';
 
 const initialState = {
