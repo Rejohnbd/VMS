@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { DeviceTextInputGroup } from '../../utils/';
-import { store } from 'react-notifications-component';
+// import { store } from 'react-notifications-component';
 // Redux
 import {connect} from 'react-redux';
 import { addDevice } from '../../redux/actions/DeviceAction';

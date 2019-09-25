@@ -1,5 +1,6 @@
 import React, {Fragment} from 'react';
 import PropTypes from 'prop-types';
+import { UnassignDeviceModal } from '../devices'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
     faPhoneSquareAlt,
@@ -8,7 +9,8 @@ import {
     faEnvelope,
     faAngleDown,
     faMapMarker,
-    faTrash
+    faTrash,
+    faHdd
 } from '@fortawesome/free-solid-svg-icons';
 import ReactTooltip  from 'react-tooltip';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
@@ -16,16 +18,42 @@ import '../../../node_modules/sweetalert2/dist/sweetalert2.css';
 import profileImage from '../../images/profile-image.png';
 // Redux
 import { connect } from 'react-redux';
-import { getUserDevice, unAssignUserDevice } from '../../redux/actions/UserAction';
-
-
+import { getUserDevice, unAssignUserDevice, assignedDeviceToUser } from '../../redux/actions/UserAction';
+import { getUnassignDevices } from '../../redux/actions/DeviceAction';
 
 class UserDetails extends React.Component {
-    state = {}
+    state = {
+        modalIsOpen: false
+    }
 
     componentDidMount() {
         this.props.getUserDevice(this.props.user._id);
     }
+
+    openModal = () => {
+        this.props.getUnassignDevices();
+        this.setState({ modalIsOpen: true })
+    }
+    
+    modalClose = () => {
+        this.setState({ modalIsOpen: false })
+    }
+
+    assignDeviceHandler = (imei) => {
+        let data = {
+            uid: this.props.user._id,
+            imei: imei
+        }
+        this.props.assignedDeviceToUser(data);
+        Swal.fire({
+            type: 'success',
+            title: 'Device Assign Successfully',
+            showConfirmButton: false,
+            timer: 1500
+        })
+        this.setState({ modalIsOpen: false })
+    }
+
     deleteDevice = (device) => {
         Swal.fire({
             title: 'Are you sure?',
@@ -62,14 +90,15 @@ class UserDetails extends React.Component {
 
     render() { 
         const { name, image, email, contact, address, organization_name } = this.props.user;
-        const { devices } = this.props;
-        console.log(devices,'From Redux')
+        const { devices, unassignDevices } = this.props;
+
+        console.log(devices, unassignDevices, 'From Redux')
         return (
             <Fragment>
                 <div className="d-sm-flex align-items-center justify-content-between mb-4">
                     <h1 className="h3 mb-0 text-gray-800">&nbsp;</h1>
-                    <button  className="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-                        <i className="fas fa-download fa-sm text-white-50"></i> Assing New Device
+                    <button  className="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onClick={this.openModal}>
+                        <FontAwesomeIcon icon={faHdd} /> Assing New Device
                     </button>
                 </div>
                 <div className="row">
@@ -171,45 +200,16 @@ class UserDetails extends React.Component {
                                                 <button onClick={this.deleteDevice.bind(this, device)} className="btn btn-danger btn-circle mx-2" data-tip="Delete this device"> 
                                                     <FontAwesomeIcon icon={faTrash} />
                                                 </button>
-                                                {/* {deleteDevice} */}
                                                 <ReactTooltip />
                                             </div>
                                         </div>
                                     </div>
                                 )
                             )}
-                            
-                             
-
-                            {/* <div className="card shadow ml-4 mr-4 mb-4">
-                                <a href="#collapseCardExample2" className="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample2">
-                                    <h6 className="m-0 font-weight-bold text-primary">Collapsable Card Example</h6>
-                                    <FontAwesomeIcon icon={faAngleDown} className="vehicle-icon" />
-                                </a>
-                    
-                                <div className="collapse show" id="collapseCardExample2" >
-                                    <div className="card-body">
-                                        This is a collapsable card example using Bootstrap's built in collapse functionality. <strong>Click on the card header</strong> to see the card body collapse and expand!
-                                    </div>
-                                </div>
-                            </div> 
-
-                            <div className="card shadow ml-4 mr-4 mb-4">
-                                <a href="#collapseCardExample3" className="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample3">
-                                    <h6 className="m-0 font-weight-bold text-primary">Collapsable Card Example</h6>
-                                    <FontAwesomeIcon icon={faAngleDown} className="vehicle-icon" />
-                                </a>
-                    
-                                <div className="collapse show" id="collapseCardExample3" >
-                                    <div className="card-body">
-                                        This is a collapsable card example using Bootstrap's built in collapse functionality. <strong>Click on the card header</strong> to see the card body collapse and expand!
-                                    </div>
-                                </div>
-                            </div>  */}
-
                         </div>
                     </div>
                 </div>
+                <UnassignDeviceModal devices={unassignDevices} modalIsOpen={this.state.modalIsOpen} modalClose={this.modalClose} assignDevice={this.assignDeviceHandler} />
             </Fragment>
         );
     }
@@ -218,16 +218,22 @@ class UserDetails extends React.Component {
 UserDetails.propTypes = {
     getUserDevice: PropTypes.func.isRequired,
     unAssignUserDevice: PropTypes.func.isRequired,
-    devices: PropTypes.array.isRequired
+    getUnassignDevices: PropTypes.func.isRequired,
+    assignedDeviceToUser: PropTypes.func.isRequired,
+    devices: PropTypes.array.isRequired,
+    unassignDevices: PropTypes.array.isRequired
 }
 
 const mapStateToProps = (state) => ({
-    devices: state.user.devices
+    devices: state.user.devices,
+    unassignDevices: state.device.unassignDevices
 })
 
 const mapActionToProps = {
     getUserDevice,
-    unAssignUserDevice
+    unAssignUserDevice,
+    getUnassignDevices,
+    assignedDeviceToUser
 }
  
 export default connect(

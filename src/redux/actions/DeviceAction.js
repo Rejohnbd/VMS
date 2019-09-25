@@ -1,7 +1,7 @@
 import axios from 'axios';
 import {
     GET_DEVICES,
-    ADD_DEVICE
+    GET_UNASSIGN_DEVICE
 } from '../Types';
 import {
     deviceAddedSuccessfully
@@ -15,6 +15,17 @@ export const getDevices = () => (dispatch) => {
             console.log(res.data);
             dispatch({
                 type: GET_DEVICES,
+                payload: res.data
+            })
+        })
+        .catch(err => console.log(err))
+}
+
+export const getUnassignDevices = () => (dispatch) => {
+    axios.get(BASE_URL+'devices/unassign')
+        .then(res => {
+            dispatch({
+                type: GET_UNASSIGN_DEVICE,
                 payload: res.data
             })
         })

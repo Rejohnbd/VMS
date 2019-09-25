@@ -3,6 +3,7 @@ import {
     GET_USERS,
     USER_DEVICES,
     UNASSIGN_DEVICE,
+    ASSIGN_DEVICE,
     SEND_ADMIN_NOTIFICATION
 } from '../Types';
 
@@ -37,6 +38,17 @@ export const unAssignUserDevice = (device) => (dispatch) => {
         .then(res => {
             dispatch({
                 type: UNASSIGN_DEVICE,
+                payload: res.data
+            })
+        })
+        .catch(err => console.log(err))
+}
+
+export const assignedDeviceToUser = (data) => (dispatch) => {
+    axios.post(BASE_URL+'devices/assign', data)
+        .then(res => {
+            dispatch({
+                type: ASSIGN_DEVICE,
                 payload: res.data
             })
         })

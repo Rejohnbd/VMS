@@ -62,13 +62,11 @@ class UserList extends React.Component {
             keyColumn: 'email',
             data: {
                 columns: [ 
-                    { id: "id", label: "USERID" },
                     { id: "name", label: "USER NAME" },
                     { id: "contact", label: "USER PHONE" },
                     { id: "email", label: "USER EMAIL" },
                     { id: "organization_name", label: "USER ORGANIZATION" },
-                    { id: "address", label: "USER ADDRESS"},
-                    { id: "actions", label: "ACTIONS"}
+                    { id: "address", label: "USER ADDRESS"}
                 ],
                 rows: users
             },

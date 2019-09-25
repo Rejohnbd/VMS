@@ -2,7 +2,8 @@ import {
     GET_USERS,
     SEND_ADMIN_NOTIFICATION,
     USER_DEVICES,
-    UNASSIGN_DEVICE
+    UNASSIGN_DEVICE,
+    ASSIGN_DEVICE,
 } from '../Types';
 
 
@@ -32,6 +33,11 @@ export default function(state = initialState, action) {
             return {
                 ...state,
                 devices: state.devices.filter(device => device.imei !== action.payload.imei)
+            }
+        case ASSIGN_DEVICE:
+            return {
+                ...state,
+                devices: [...state.devices, action.payload]
             }
         default:
             return state
