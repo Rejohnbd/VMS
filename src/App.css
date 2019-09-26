@@ -30,3 +30,6 @@
   display: none !important;
 }
 
+.ReactModal__Overlay--after-open {
+  background-color: rgba(16, 16, 16, 0.54) !important;
+}

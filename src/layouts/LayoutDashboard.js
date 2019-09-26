@@ -40,7 +40,9 @@ class LayoutDashboard extends React.Component {
                 goToUserDetails = {this.goToUserDetailsHandler}
                 />
             case 'USER_DETAILS':
-                return <UserDetails user = {this.state.user} />
+                return <UserDetails 
+                user = {this.state.user} 
+                />
             case 'DEVICES_LIST':
                 return <DeviceList />
             case 'ADD_DEVICE':

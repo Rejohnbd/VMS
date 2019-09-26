@@ -1,6 +1,7 @@
 import React, {Fragment} from 'react';
 import PropTypes from 'prop-types';
-import { UnassignDeviceModal } from '../devices'
+import mapboxgl from 'mapbox-gl';
+import { UnassignDeviceModal } from '../devices';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
     faPhoneSquareAlt,
@@ -194,7 +195,7 @@ class UserDetails extends React.Component {
                                                 </div>
                                             </div>
                                             <div className="card-footer text-center">
-                                            <button className="btn btn-primary btn-circle mx-2" data-tip="View in Map"> 
+                                                <button className="btn btn-primary btn-circle mx-2" data-tip="View in Map"> 
                                                     <FontAwesomeIcon icon={faMapMarker} />
                                                 </button>
                                                 <button onClick={this.deleteDevice.bind(this, device)} className="btn btn-danger btn-circle mx-2" data-tip="Delete this device"> 
