@@ -33,3 +33,11 @@
 .ReactModal__Overlay--after-open {
   background-color: rgba(16, 16, 16, 0.54) !important;
 }
+
+.Overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}

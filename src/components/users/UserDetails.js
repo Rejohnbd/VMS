@@ -1,6 +1,5 @@
 import React, {Fragment} from 'react';
 import PropTypes from 'prop-types';
-import mapboxgl from 'mapbox-gl';
 import { UnassignDeviceModal } from '../devices';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
@@ -103,7 +102,7 @@ class UserDetails extends React.Component {
                     </button>
                 </div>
                 <div className="row">
-                    <div className="col-sm-12 col-md-4">
+                    <div className="col-md-12 col-lg-4">
                         <div className="card shadow text-center">
                             <div className="card-header text-capitalize">
                                 <h5 className="text-primary">{name}</h5>
@@ -129,7 +128,7 @@ class UserDetails extends React.Component {
                                 </ul>
                         </div>
                     </div>
-                    <div className="col-sm-12 col-md-8">
+                    <div className="col-md-12 col-lg-12">
                         <div className="card shadow mb-4" >
                             <div className="card-header py-3 mb-4">
                                 <h6 className="m-0 font-weight-bold text-center text-primary">
