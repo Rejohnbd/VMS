@@ -1,6 +1,10 @@
 import React, {Fragment} from 'react';
 import PropTypes from 'prop-types';
+import firebase from 'firebase';
 import { UnassignDeviceModal } from '../devices';
+import { VehicleLocationModal } from '../location';
+import * as geolib from 'geolib';
+import { convertData } from '../../utils/Utils';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
     faPhoneSquareAlt,
@@ -21,9 +25,16 @@ import { connect } from 'react-redux';
 import { getUserDevice, unAssignUserDevice, assignedDeviceToUser } from '../../redux/actions/UserAction';
 import { getUnassignDevices } from '../../redux/actions/DeviceAction';
 
+let ref = null;
+
 class UserDetails extends React.Component {
     state = {
-        modalIsOpen: false
+        modalIsOpen: false,
+        showModal: false,
+        device: null,
+        deviceData: {},
+        data: null,
+        rotation: 0
     }
 
     componentDidMount() {
@@ -37,6 +48,11 @@ class UserDetails extends React.Component {
     
     modalClose = () => {
         this.setState({ modalIsOpen: false })
+    }
+
+    closeMapModal = () => {
+        this.setState({ showModal: false })
+        ref.off();
     }
 
     assignDeviceHandler = (imei) => {
@@ -80,19 +96,63 @@ class UserDetails extends React.Component {
           })
     }
 
-    deleteFile = () => {
-        console.log('called')
-    }
+    changeState = (currntData,rotation) => {
+        this.setState({data: currntData,rotation:rotation})
+      }
+    
+      animate = (data, newData, currentState) => {
+        
+        let step = 30;
+        let deltaLat = (newData.lat - data.lat)/step;
+        let deltaLng = (newData.lng - data.lng)/step;
+        let cdata = data;
+    
+        let rotation = geolib.getGreatCircleBearing(
+          {latitude: data.lat, longitude: data.lng},
+          {latitude: newData.lat, longitude: newData.lng}
+        )
+        
+        function anim (){
+          let newLat = cdata.lat + deltaLat;
+          let newLng = cdata.lng + deltaLng;
+          
+          cdata.lat = newLat;
+          cdata.lng = newLng;
+         
+          if(step > 0){
+            requestAnimationFrame(anim)
+            step --;
+          }
+        
+          currentState(cdata,rotation)
+        }
+        requestAnimationFrame(anim)
+      }
 
-    onCancel = () => {
-        this.setState({ deleteDevice: false })
+    deviceViewInMap = (device) => {
+        ref = firebase.database().ref().child('devices').child(device.imei)
+        ref.on('child_added', data => {
+            if(data.key ==='data'){
+                // console.log(convertData(data.val()))
+                this.setState({ 
+                    deviceData: convertData(data.val()),
+                    data: convertData(data.val())
+                })
+                this.setState({ showModal: true })
+            }
+         })
+
+         ref.on('child_changed', data => {
+            if(data.key ==='data'){
+              let newData = convertData(data.val())
+              this.animate(this.state.data, newData,this.changeState)
+            }           
+          })
     }
 
     render() { 
         const { name, image, email, contact, address, organization_name } = this.props.user;
         const { devices, unassignDevices } = this.props;
-
-        console.log(devices, unassignDevices, 'From Redux')
         return (
             <Fragment>
                 <div className="d-sm-flex align-items-center justify-content-between mb-4">
@@ -128,7 +188,7 @@ class UserDetails extends React.Component {
                                 </ul>
                         </div>
                     </div>
-                    <div className="col-md-12 col-lg-12">
+                    <div className="col-md-12 col-lg-8">
                         <div className="card shadow mb-4" >
                             <div className="card-header py-3 mb-4">
                                 <h6 className="m-0 font-weight-bold text-center text-primary">
@@ -194,7 +254,7 @@ class UserDetails extends React.Component {
                                                 </div>
                                             </div>
                                             <div className="card-footer text-center">
-                                                <button className="btn btn-primary btn-circle mx-2" data-tip="View in Map"> 
+                                                <button onClick={() => this.deviceViewInMap(device)} className="btn btn-primary btn-circle mx-2" data-tip="View in Map" data-toggle="modal" data-target=".bd-example-modal-xl"> 
                                                     <FontAwesomeIcon icon={faMapMarker} />
                                                 </button>
                                                 <button onClick={this.deleteDevice.bind(this, device)} className="btn btn-danger btn-circle mx-2" data-tip="Delete this device"> 
@@ -210,6 +270,7 @@ class UserDetails extends React.Component {
                     </div>
                 </div>
                 <UnassignDeviceModal devices={unassignDevices} modalIsOpen={this.state.modalIsOpen} modalClose={this.modalClose} assignDevice={this.assignDeviceHandler} />
+                <VehicleLocationModal device = {this.state.deviceData} showModal={this.state.showModal} modalClose={this.closeMapModal} rotation = {this.state.rotation} data = {this.state.data} />
             </Fragment>
         );
     }

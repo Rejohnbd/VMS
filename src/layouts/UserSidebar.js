@@ -6,14 +6,22 @@ import {
     faCarSide, 
     faTachometerAlt,
     faUser,    
-    faPowerOff
+    faPowerOff,
+    faAngleRight,
+    faAngleLeft
 } from '@fortawesome/free-solid-svg-icons';
 // import { faBell } from '@fortawesome/fontawesome-svg-core';
 // Redux
 import { connect } from "react-redux";
 
 class UserSidebar extends React.Component {
-    state = {  }
+    state = { 
+        sidebarToggle: false
+    }
+
+    toggledSidebar = () => {
+        this.setState({ sidebarToggle: !this.state.sidebarToggle })
+    }
 
     selectDashboard = () => {
         this.props.changeUserState('USER_DASHBOARD');
@@ -34,7 +42,7 @@ class UserSidebar extends React.Component {
 
     render() { 
         return (
-            <ul className="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+            <ul className={`navbar-nav bg-gradient-primary sidebar sidebar-dark ${this.state.sidebarToggle ? "toggled" : ""} accordion`} id="accordionSidebar">
                 <button onClick={this.selectDashboard}  className="brand-home-icon sidebar-brand d-flex align-items-center justify-content-center">
                     <div className="sidebar-brand-icon rotate-n-15">
                         <FontAwesomeIcon icon={faTruck} />
@@ -77,7 +85,13 @@ class UserSidebar extends React.Component {
                 </li>
                 <hr className="sidebar-divider d-none d-md-block" />
                 <div className="text-center d-none d-md-inline">
-                    <button className="rounded-circle border-0" id="sidebarToggle"></button>
+                    <button onClick={this.toggledSidebar} className="rounded-circle border-0" id="sidebarToggle">
+                        { this.state.sidebarToggle ? (
+                            <FontAwesomeIcon icon={faAngleRight} style={{color: '#fff'}} />
+                        ) : (
+                            <FontAwesomeIcon icon={faAngleLeft} style={{color: '#fff'}} />
+                        )}
+                    </button>
                 </div>
             </ul>
         );

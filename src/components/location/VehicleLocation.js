@@ -3,6 +3,7 @@ import mapboxgl from 'mapbox-gl';
 import ReactMapboxGl, { Layer, Feature } from 'react-mapbox-gl';
 import firebase from 'firebase';
 import MyMarker from './MyMarker';
+import { convertData } from '../../utils/Utils';
 import * as geolib from 'geolib';
 // Redux
 // import { connect } from 'react-redux';
@@ -13,25 +14,6 @@ const Map = ReactMapboxGl({
     'pk.eyJ1IjoicmVqb2huIiwiYSI6ImNqeXNqenl6NTBtcmUzbnNlN2swYXhvb2IifQ.4GjRx2WVIwGy8yLaKBTXmg'
 });
 
-function dex_to_degrees (dex) {
-  return parseInt(dex, 16) / 1800000;
-};
-
-function convertData (data) {
-    // console.log(data)
-    let lat = dex_to_degrees(data.lat);
-    let lng = dex_to_degrees(data.lng);
-    let speed = dex_to_degrees(data.speed)*1800000;
-    let status = data.status;
-    let newData = {
-      lat: lat,
-      lng: lng,
-      speed: speed,
-      status: status
-    }
-
-    return newData
-}
 
 class VehicleLocation extends React.Component {
 

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Modal from 'react-modal';
 import { Datatable } from "@o2xp/react-datatable";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import ReactTooltip  from 'react-tooltip';
 import { 
     faCheck,
 } from '@fortawesome/free-solid-svg-icons';
@@ -93,9 +94,10 @@ class UnassignDeviceModal extends Component {
                     <div className="modal-content">
                         <div className="modal-header">
                             <h5 className="modal-title" id="exampleModalLabel">List of Unassign Devices</h5>
-                            <button onClick={this.props.modalClose} type="button" className="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
+                            <button onClick={this.props.modalClose} type="button" className="close" data-dismiss="modal" data-tip="Close" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
                             </button>
+                            <ReactTooltip />
                         </div>
                         <div className="modal-body">
                             <Datatable 
@@ -107,7 +109,6 @@ class UnassignDeviceModal extends Component {
                         </div>
                     </div>
             </Modal>
-            
         );
     }
 }

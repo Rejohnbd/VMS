@@ -152,7 +152,6 @@ class AdminSidebar extends React.Component {
                         ) : (
                             <FontAwesomeIcon icon={faAngleLeft} style={{color: '#fff'}} />
                         )}
-                        
                     </button>
                 </div>
             </ul>
