@@ -1,16 +1,13 @@
 import {
     GET_USERS,
-    SEND_ADMIN_NOTIFICATION,
-    USER_DEVICES,
-    UNASSIGN_DEVICE,
-    ASSIGN_DEVICE,
+    // SEND_ADMIN_NOTIFICATION
 } from '../Types';
 
 
 const initialState = {
     users: [],
-    user: {},
-    devices: []
+    // user: {},
+    // devices: []
 }
 
 export default function(state = initialState, action) {
@@ -20,25 +17,15 @@ export default function(state = initialState, action) {
                 ...state,
                 users: action.payload
             }
-        case SEND_ADMIN_NOTIFICATION:
-            return {
-                ...state
-            }
-        case USER_DEVICES: 
-            return {
-                ...state,
-                devices: action.payload
-            }
-        case UNASSIGN_DEVICE:
-            return {
-                ...state,
-                devices: state.devices.filter(device => device.imei !== action.payload.imei)
-            }
-        case ASSIGN_DEVICE:
-            return {
-                ...state,
-                devices: [...state.devices, action.payload]
-            }
+        // case SEND_ADMIN_NOTIFICATION:
+        //     return {
+        //         ...state
+        //     }
+        // case USER_DEVICES: 
+        //     return {
+        //         ...state,
+        //         devices: action.payload
+        //     }
         default:
             return state
     }

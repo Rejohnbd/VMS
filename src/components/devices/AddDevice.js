@@ -1,6 +1,8 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { DeviceTextInputGroup } from '../../utils/';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
+import '../../../node_modules/sweetalert2/dist/sweetalert2.css';
 // import { store } from 'react-notifications-component';
 // Redux
 import {connect} from 'react-redux';
@@ -16,7 +18,6 @@ class AddDevice extends Component {
         vehicle_type: 0,
         cls_name: false,
         errors: {},
-        addNotification: false
     }
 
     onChangeHandler = (e) => {
@@ -78,7 +79,12 @@ class AddDevice extends Component {
         }
 
         this.props.addDevice(newDevice);
-        this.setState({ addNotification: true })
+        Swal.fire({
+            type: 'success',
+            title: 'Device Added Successfully',
+            showConfirmButton: false,
+            timer: 1500
+          })
         this.setState({
             imei: '',
             registration_number: '',
@@ -94,18 +100,8 @@ class AddDevice extends Component {
     render() {
         const { imei, registration_number, device_sim_number, device_model, center_number, vehicle_type, cls_name, errors } = this.state; 
         const vehicleTypeError = cls_name ? ('is-invalid'): null;
-        
-        // const { popupMessage } = this.props;
-        // console.log(popupMessage);
-        // let notificationMarkup = this.state.addNotification ? (store.addNotification(
-        //     popupMessage
-        // )) : null;
         return (
             <Fragment>
-                {/* { notificationMarkup } */}
-                <div className="d-sm-flex align-items-center justify-content-between mb-4">
-                    {/* <h1 className="h3 mb-0 text-gray-800">Vehicle Location</h1> */}
-                </div>
                 <div className="card shadow mb-4" >
                     <div className="card-header py-3">
                         <h6 className="m-0 font-weight-bold text-center text-primary">ADD NEW DEVICE</h6>
@@ -187,12 +183,8 @@ class AddDevice extends Component {
 AddDevice.propTypes = {
     addDevice: PropTypes.func.isRequired
 }
-
-const mapStateToProps = (state) => ({
-    popupMessage: state.popupMessage
-})
  
 export default connect(
-    mapStateToProps,
+    null,
     { addDevice }
 )(AddDevice);

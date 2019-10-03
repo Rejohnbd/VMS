@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Modal from 'react-modal';
 import { Datatable } from "@o2xp/react-datatable";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -7,6 +8,8 @@ import {
     faCheck,
 } from '@fortawesome/free-solid-svg-icons';
 import { store } from 'react-notifications-component';
+// Redux
+import { connect } from 'react-redux';
 
 
 class UnassignDeviceModal extends Component {
@@ -16,7 +19,6 @@ class UnassignDeviceModal extends Component {
     }
 
     assignDevice = (device) => {
-        console.log(device, 'From Modal')
         if(device.length > 1 ){
             store.addNotification({
                 title: "You Select Multiple Device!",
@@ -42,7 +44,9 @@ class UnassignDeviceModal extends Component {
         
     }
 
-    render() { 
+    render() {
+        const { devices } = this.props;
+        let unassignedDevices = devices.filter(device => device.uid === null); 
         let options  = {
             dimensions: {
                 datatable: {
@@ -62,7 +66,7 @@ class UnassignDeviceModal extends Component {
                     { id: "device_sim_number", label: "DEVICE SIM NUMBER" },
                     { id: "center_number", label: "CENTER NUMBER" },
                 ],
-                rows: this.props.devices
+                rows: unassignedDevices
             },
             features: {
                 selectionIcons: [
@@ -112,5 +116,15 @@ class UnassignDeviceModal extends Component {
         );
     }
 }
+
+UnassignDeviceModal.propTypes = {
+    devices: PropTypes.array.isRequired
+}
+
+const mapStateToProps = (state) => ({
+    devices: state.device.devices
+})
  
-export default UnassignDeviceModal;
+export default connect(
+    mapStateToProps
+)(UnassignDeviceModal);

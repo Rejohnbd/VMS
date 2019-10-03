@@ -2,7 +2,7 @@ import React, {Fragment} from 'react';
 import PropTypes from 'prop-types';
 // Redux
 import { connect } from 'react-redux';
-import { getUsers, sendAdminNotification } from '../../redux/actions/UserAction';
+import { sendAdminNotification } from '../../redux/actions/UserAction';
 
 class Notification extends React.Component {
     state = {
@@ -15,7 +15,6 @@ class Notification extends React.Component {
      }
 
     componentDidMount(){
-        this.props.getUsers()
     }
 
     changeHandler = (e) => {
@@ -139,7 +138,6 @@ const mapStateToProps = (state) => ({
 })
 
 const mapActionToProps = {
-    getUsers,
     sendAdminNotification
 }
  

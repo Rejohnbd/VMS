@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { AdminTopbar, UserTopbar, AdminSidebar, UserSidebar, Footer } from './index'
 import { AdminDashboard, UserDashboard } from '../components/dashboard';
-import { DeviceList, AddDevice  } from '../components/devices';
+import { DeviceList, AssignDeviceList, AddDevice, DeviceDetails  } from '../components/devices';
 import { VehicleList, EditVehicle, VehicleReport } from '../components/vehicles';
 import { VehicleLocation } from '../components/location';
 import { UserProfile, AdminProfile } from '../components/profile';
@@ -31,10 +31,16 @@ class LayoutDashboard extends React.Component {
         this.setState({ user: user, adminState: 'USER_DETAILS' })
     }
 
+    goToDeviceDetailsHandler = (device) => {
+        this.setState({ device: device, adminState: 'DEVICE_DETAILS' })
+    }
+
     adminSateRender = () => {
         switch(this.state.adminState){
             case 'ADMIN_DASHBOARD':
-                return <AdminDashboard />
+                return <AdminDashboard 
+                changeAdminState={this.adminStateHandler}
+                />
             case 'USERS_LIST':
                 return <UserList
                 goToUserDetails = {this.goToUserDetailsHandler}
@@ -44,7 +50,17 @@ class LayoutDashboard extends React.Component {
                 user = {this.state.user} 
                 />
             case 'DEVICES_LIST':
-                return <DeviceList />
+                return <DeviceList
+                goToDeviceDetails = {this.goToDeviceDetailsHandler}
+                />
+            case 'ASSIGN_DEVICES_LIST':
+                return <AssignDeviceList
+                goToDeviceDetails = {this.goToDeviceDetailsHandler}
+                />
+            case 'DEVICE_DETAILS':
+                return <DeviceDetails
+                device = {this.state.device}
+                />
             case 'ADD_DEVICE':
                 return <AddDevice />
             case 'ADMIN_PROFILE':
@@ -52,7 +68,9 @@ class LayoutDashboard extends React.Component {
             case 'SEND_NOTIFICATION':
                 return <Notification />
             default:
-                return <AdminDashboard />
+                return <AdminDashboard 
+                changeAdminState={this.adminStateHandler}
+                />
         }
     }
 

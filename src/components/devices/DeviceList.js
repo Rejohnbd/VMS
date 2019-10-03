@@ -1,47 +1,50 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { Datatable } from "@o2xp/react-datatable";
-// import MaterialTable from 'material-table';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
     faEye,
 } from '@fortawesome/free-solid-svg-icons';
+import { store } from 'react-notifications-component';
+import { formatedDeviceDataForDeviceList } from '../../utils/Utils';
 // Redux
 import { connect } from 'react-redux';
-import { getDevices } from '../../redux/actions/DeviceAction';
-
 
 
 class DeviceList extends React.Component {
     state = {  }
 
     componentDidMount() {
-        this.props.getDevices();
     }
 
-    buildCustomTableBodyCell = ({ cellVal, column, is_inactive }) => {
-        let val;
-        // console.log(cellVal,'Cellval')
-        console.log(column)
-
-        switch(column.is_inactive){
-            case "boolean":
-                if (cellVal) {
-                val = <div style={{ color: "green", textAlign: "center" }}>Yes</div>;
-                } else {
-                val = <div style={{ color: "red", textAlign: "center" }}>No</div>;
+    goToDeviceDetail = (device) => {
+        if(device.length > 1 ){
+            store.addNotification({
+                title: "You Select Multiple Devices!",
+                message: "Please select only one Device to show details",
+                type: "danger",
+                insert: "top",
+                container: "top-right",
+                animationIn: ["animated", "fadeIn"],
+                animationOut: ["animated", "fadeOut"],
+                dismiss: {
+                  duration: 5000,
+                  onScreen: true
                 }
-                break;
-            default:
-                val = <div style={{ color: "blue" }}>{cellVal}</div>;
-                break;
+            })
         }
-        return val;
+        if(device.length === 1) {
+            let deviceObj =  {};
+            device.map(device=> {
+                deviceObj = device
+            })
+            this.props.goToDeviceDetails(deviceObj);
+        }
     }
 
     render() {
         const { devices } = this.props;
-        console.log(devices)
+        let allDevice = formatedDeviceDataForDeviceList(devices);
         let options  = {
             dimensions: {
                 datatable: {
@@ -62,43 +65,25 @@ class DeviceList extends React.Component {
                     { id: "is_inactive", label: "DEVICE STATUS" },
                     { id: "vehicle_type", label: "VEHICLE TYPE"}
                 ],
-                rows: devices
+                rows: allDevice
             },
             features: {
                 selectionIcons: [
                     {
-                        title: 'View User',
+                        title: 'View Device Info',
                         icon: <FontAwesomeIcon icon={faEye} style={{color: '#3f51b5'}} />,
-                        onClick: (user) => this.goToUserDetail(user)
+                        onClick: (device) => this.goToDeviceDetail(device)
                     },
                 ],
-                // canEdit: true,
-                // canDelete: true,
                 canPrint: true,
                 canDownload: true,
                 canSearch: true,
-                // canRefreshRows: true,
                 canOrderColumns: true,
                 canSelectRow: true,
                 canSaveUserConfiguration: true,
                 userConfiguration: {
                     columnsOrder: ["imei", "device_model", "device_sim_number", "registration_number", "is_inactive", "vehicle_type"]
-                },
-                // additionalIcons: [ 
-                //     {
-                //         title: 'View User',
-                //         icon: <FontAwesomeIcon icon={faFolderPlus} />,
-                //         onClick: ()=>{console.log('got')} 
-                //     }
-                // ],
-                 
-                // selectionIcons: [
-                //     {
-                //       title: "Selected Rows",
-                //       icon: <DataUsage />,
-                //       onClick: rows => console.log(rows)
-                //     }
-                // ]
+                }
             }
         }
         return (
@@ -109,7 +94,7 @@ class DeviceList extends React.Component {
                     </div>
                     <Datatable 
                         options={options}
-                        CustomTableBodyCell={this.buildCustomTableBodyCell} 
+                        CustomTableBodyCell={this.deviceStatus}
                     />
                 </div>
             </Fragment>
@@ -118,7 +103,6 @@ class DeviceList extends React.Component {
 }
 
 DeviceList.propTypes = {
-    getDevices: PropTypes.func.isRequired,
     devices: PropTypes.array.isRequired
 }
 
@@ -128,5 +112,5 @@ const mapStateToProps = (state) => ({
  
 export default connect(
     mapStateToProps,
-    {getDevices}
+    null
 )(DeviceList);

@@ -1,9 +1,6 @@
 import React, {Fragment} from 'react';
 import PropTypes from 'prop-types';
-// import styled from 'styled-components';
-// import DataTable from 'react-data-table-component';
 import { Datatable } from "@o2xp/react-datatable";
-// import VisibilityIcon from '@material-ui/icons/Visibility';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
     faEye,
@@ -11,14 +8,12 @@ import {
 import { store } from 'react-notifications-component';
 // Redux
 import { connect } from 'react-redux';
-import { getUsers } from '../../redux/actions/UserAction';
 
 
 class UserList extends React.Component {
     state = {} 
 
     componentDidMount() {
-        this.props.getUsers();
     }
 
     goToUserDetail = (user) => {
@@ -78,33 +73,15 @@ class UserList extends React.Component {
                         onClick: (user) => this.goToUserDetail(user)
                     },
                 ],
-                // canEdit: true,
-                // canDelete: true,
                 canPrint: true,
                 canDownload: true,
                 canSearch: true,
-                // canRefreshRows: true,
                 canOrderColumns: true,
                 canSelectRow: true,
                 canSaveUserConfiguration: true,
                 userConfiguration: {
                     columnsOrder: ["name", "contact", "email", "organization_name", "address"]
                 },
-                // additionalIcons: [ 
-                //     {
-                //         title: 'View User',
-                //         icon: <FontAwesomeIcon icon={faFolderPlus} />,
-                //         onClick: ()=>{console.log('got')} 
-                //     }
-                // ],
-                 
-                // selectionIcons: [
-                //     {
-                //       title: "Selected Rows",
-                //       icon: <DataUsage />,
-                //       onClick: rows => console.log(rows)
-                //     }
-                // ]
             }
         }
         return (
@@ -123,7 +100,6 @@ class UserList extends React.Component {
 }
 
 UserList.propTypes = {
-    getUsers: PropTypes.func.isRequired,
     users: PropTypes.array.isRequired
 }
 
@@ -133,5 +109,5 @@ const mapStateToProps = (state) => ({
  
 export default connect(
     mapStateToProps,
-    { getUsers }
+    null
 )(UserList);
