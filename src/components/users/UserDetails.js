@@ -21,7 +21,6 @@ import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import profileImage from '../../images/profile-image.png';
 // Redux
 import { connect } from 'react-redux';
-// import { getUserDevice} from '../../redux/actions/UserAction';
 import { assignedDeviceToUser, unAssignUserDevice } from '../../redux/actions/DeviceAction';
 
 let ref = null;
@@ -146,6 +145,7 @@ class UserDetails extends React.Component {
     render() { 
         const { name, image, email, contact, address, organization_name } = this.props.user;
         const { devices } = this.props;
+        console.log(devices,'User Details');
         let userUsedDevices = devices.filter(device => device.uid === this.props.user._id);
         let deviceMarkup = (userUsedDevices === undefined) ? (
              <Loader style={{margin: '0px auto', marginBottom: '30px'}} type="Circles" color="#4e73df" height={50} width={100} />

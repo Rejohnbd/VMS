@@ -6,14 +6,14 @@ import {
     faEye,
 } from '@fortawesome/free-solid-svg-icons';
 import { store } from 'react-notifications-component';
-import { checkAssignedDevice, formatedDeviceDataForDeviceList } from '../../utils/Utils';
+import { checkUnassignedDevice, formatedDeviceDataForDeviceList } from '../../utils/Utils';
 // Redux
 import { connect } from 'react-redux';
 
 
 
 
-class AssignDeviceList extends React.Component {
+class UnAssignDeviceList extends React.Component {
     state = {  }
 
     componentDidMount() {
@@ -46,7 +46,7 @@ class AssignDeviceList extends React.Component {
     }
 
     render() {
-        let assignDevice = checkAssignedDevice(this.props.devices);
+        let assignDevice = checkUnassignedDevice(this.props.devices);
         let allDevice = formatedDeviceDataForDeviceList(assignDevice);
         let options  = {
             dimensions: {
@@ -93,7 +93,7 @@ class AssignDeviceList extends React.Component {
             <Fragment>
                 <div className="card shadow mb-4" >
                     <div className="card-header py-3">
-                        <h6 className="m-0 font-weight-bold text-center text-primary">ALL ASSIGN DEVICES LIST</h6>
+                        <h6 className="m-0 font-weight-bold text-center text-primary">ALL UNASSIGN DEVICES LIST</h6>
                     </div>
                     <Datatable 
                         options={options}
@@ -105,7 +105,7 @@ class AssignDeviceList extends React.Component {
     }
 }
 
-AssignDeviceList.propTypes = {
+UnAssignDeviceList.propTypes = {
     devices: PropTypes.array.isRequired
 }
 
@@ -116,4 +116,4 @@ const mapStateToProps = (state) => ({
 export default connect(
     mapStateToProps,
     null
-)(AssignDeviceList);
+)(UnAssignDeviceList);

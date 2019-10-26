@@ -44,6 +44,10 @@ class AdminSidebar extends React.Component {
         this.props.changeAdminState('ASSIGN_DEVICES_LIST');
     }
 
+    selectUnAssignDeviceList = () => {
+        this.props.changeAdminState('UNASSIGN_DEVICES_LIST');
+    }
+
     addNewDevice = () => {
         this.props.changeAdminState('ADD_DEVICE');
     }
@@ -109,7 +113,7 @@ class AdminSidebar extends React.Component {
                     </button>
                 </li>
                 <li className="nav-item">
-                    <button className="nav-link">
+                    <button onClick={this.selectUnAssignDeviceList} className="nav-link">
                         <FontAwesomeIcon icon={faFolderMinus} />
                         <span> Unassigned Device List</span>
                     </button>

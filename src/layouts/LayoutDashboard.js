@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { AdminTopbar, UserTopbar, AdminSidebar, UserSidebar, Footer } from './index'
 import { AdminDashboard, UserDashboard } from '../components/dashboard';
-import { DeviceList, AssignDeviceList, AddDevice, DeviceDetails  } from '../components/devices';
+import { DeviceList, AssignDeviceList, UnAssignDeviceList, AddDevice, DeviceDetails  } from '../components/devices';
 import { VehicleList, EditVehicle, VehicleReport } from '../components/vehicles';
 import { VehicleLocation } from '../components/location';
 import { UserProfile, AdminProfile } from '../components/profile';
@@ -55,6 +55,10 @@ class LayoutDashboard extends React.Component {
                 />
             case 'ASSIGN_DEVICES_LIST':
                 return <AssignDeviceList
+                goToDeviceDetails = {this.goToDeviceDetailsHandler}
+                />
+            case 'UNASSIGN_DEVICES_LIST':
+                return <UnAssignDeviceList
                 goToDeviceDetails = {this.goToDeviceDetailsHandler}
                 />
             case 'DEVICE_DETAILS':

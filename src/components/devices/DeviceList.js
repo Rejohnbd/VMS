@@ -43,8 +43,7 @@ class DeviceList extends React.Component {
     }
 
     render() {
-        const { devices } = this.props;
-        let allDevice = formatedDeviceDataForDeviceList(devices);
+        let allDevice = formatedDeviceDataForDeviceList(this.props.devices);
         let options  = {
             dimensions: {
                 datatable: {

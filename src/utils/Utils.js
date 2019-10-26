@@ -72,6 +72,7 @@ export const formatedDeviceDataForDeviceList = (devices) => {
             device_model: device.device_model,
             device_sim_number: device.device_sim_number,
             driver_name: device.driver_name,
+            driver_phone: device.driver_phone,
             driver_photo: device.driver_photo,                
             vehicle_type: vehicleType,
             mileage: device.mileage
